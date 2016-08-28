@@ -1,0 +1,15 @@
+{
+    "main": "main.js",
+    "name": "clean-torrent",
+    "description": "A clean torrent client written with electron",
+    "repository" : {
+        "type": "git", 
+        "url": "https://scwe@github.com/scwe/clean-torrent.git"   
+    },
+    "license" : "MIT", 
+    "version": "1.1.0",
+    "dependencies" : {
+        "bencoding": "*",
+        "socket.io": "*"
+    }
+}
