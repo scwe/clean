@@ -5,6 +5,7 @@ var fs = require('fs');
 var torrent = require('torrent-stream');
 
 let win;
+let engine;
 
 function createWindow(){
     win = new BrowserWindow({width: 800, height: 600});
@@ -36,7 +37,24 @@ function loadTorrents(filenames){
         for(var key in filenames){
             var tFile = parseTorrent(fs.readFileSync(filenames[key]));
             var magnet = parseTorrent.toMagnetURI(tFile);
-            console.log(magnet);
+
+            engine = torrent(magnet, {path: '~/torrent_test'});
+
+            engine.on('ready', function(){
+                engine.files.forEach(function(file){
+                    console.log("Downlodaing file: "+file.name);
+                    var stream = file.createReadStream();
+                    console.log("Streaming file: "+Object.keys(stream));
+                });
+            });
+
+            engine.on('download', function(index){
+                console.log("Finished downloading piece index: "+index);
+            });
+
+            engine.on('torrent', function(){
+                console.log("Finished getting the metadata");
+            });
         }
     }
 }
@@ -47,6 +65,16 @@ ipcMain.on('add_torrent_files', function(event){
         title: 'Open Torrent', 
         filters: [{name: "torrent", extensions: ["torrent"]}],
         properties: ['openFile', 'multiSelections']}, loadTorrents);
+});
+
+ipcMain.on('stop_torrent', function(event, torrent_file){
+
+});
+
+ipcMain.on('cancel_torrent', function(event, torrent_file){
+    if(engine){
+        engine.destroy(function(){console.log("FInished destroying");});
+    }
 });
 
 app.on('activate', () => {
