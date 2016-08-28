@@ -1,7 +1,10 @@
-const {app, BrowserWindow} = require('electron')
-const Bencoding = require('bencoding')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 
-let win
+var parseTorrent = require('parse-torrent');
+var fs = require('fs');
+var torrent = require('torrent-stream');
+
+let win;
 
 function createWindow(){
     win = new BrowserWindow({width: 800, height: 600});
@@ -24,6 +27,26 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 
+});
+
+function loadTorrents(filenames){
+
+    if(filenames){
+        console.log("Woohoo we got this far: "+filenames);
+        for(var key in filenames){
+            var tFile = parseTorrent(fs.readFileSync(filenames[key]));
+            var magnet = parseTorrent.toMagnetURI(tFile);
+            console.log(magnet);
+        }
+    }
+}
+
+ipcMain.on('add_torrent_files', function(event){
+    console.log("Recieved the event, trying to open dialog");
+    var torrents = dialog.showOpenDialog({
+        title: 'Open Torrent', 
+        filters: [{name: "torrent", extensions: ["torrent"]}],
+        properties: ['openFile', 'multiSelections']}, loadTorrents);
 });
 
 app.on('activate', () => {
