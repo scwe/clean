@@ -4,8 +4,10 @@
         <meta charset="UTF-8">
         <title>Clean Torrent</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+        <link rel="stylesheet" href="./stylesheets/font-awesome.css">
         <link rel="stylesheet" href="./stylesheets/style.css"/>
         <script src="./javascript/loadFile.js"></script>
+        <script src="./javascript/controls.js"></script>
     </head>
     <body >
         <nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
@@ -26,10 +28,10 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
-                        <li><a href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Reports</a></li>
-                        <li><a href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Analytics</a></li>
-                        <li><a href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Export</a></li>
+                        <li class="active"><a href="">All <span class="sr-only">(current)</span></a></li>
+                        <li><a href="">Active</a></li>
+                        <li><a href="">Completed</a></li>
+                        <li><a href="">Stopped</a></li>
                     </ul>
                 </div>
             </div>
@@ -54,44 +56,20 @@
                             <th>Progress</th>
                             <th>Download Speed</th>
                             <th>Upload Speed</th>
+                            <th>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
+                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
+                                        <i class="fa fa-play" id="button_play_logo"></i>
+                                    </button>
+
+                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
+                                        <i class="fa fa-stop" id="button_stop_logo"></i>
+                                    </button>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                        </tr>
                         <tr>
                             <td>This is a test torrent</td>
                             <td>5.63GB</td>
