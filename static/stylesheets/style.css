@@ -16,6 +16,15 @@ nav{
 nav > a {
     -webkit-app-region: no-drag;
 }
+
+#title-text {
+    cursor : pointer;
+}
+
+.centered-col{
+    float: none;
+    margin: 0 auto;
+}
 /*
  * Top navigation
  * Hide default border to remove 1px line.

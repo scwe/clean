@@ -20,6 +20,7 @@ function createWindow(){
     });
 
     win.loadURL(`file://${__dirname}/static/index.html`);
+    win.webContents.openDevTools();
 
     win.on('closed', () => {
         win = null;

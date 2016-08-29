@@ -11,13 +11,16 @@
         <script src="./javascript/app.js"></script>
     </head>
     <body >
+
         <nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
-            <a class="navbar-brand" href="">.clean</a>
+            <!-- The only reason we are using a here is because otherwise bootstrap
+            does funny things to how it looks-->
+            <a class="navbar-brand" id="title-text" href="" onclick="return false;">.clean</a>
             <div id="navbar">
                 <nav class="nav navbar-nav pull-xs-right">
-                    <a class="nav-item nav-link" href="">Dashboard</a>
-                    <a class="nav-item nav-link" href="">Settings</a>
-                    <a class="nav-item nav-link" href="">Profile</a>
+                    <a class="nav-item nav-link" href="" onclick="return false;">Dashboard</a>
+                    <a class="nav-item nav-link" href="" onclick="return false;">Settings</a>
+                    <a class="nav-item nav-link" href="" onclick="return false;">Profile</a>
                     <a class="nav-item nav-link" href="" onclick="quit()">Quit</a>
                 </nav>
                 <!--<form class="pull-xs-right">
@@ -38,8 +41,8 @@
             </div>
         </div>
         <div class="container main">
-            <div class="row" id="torrent-controls">
-                <div class="row top-buffer">
+            <div class="row top-buffer" id="torrent-controls">
+                <div class="col-lg-6 centered-col">
                     <button type="button" class="btn btn-default" onclick='loadFiles()'>
                         Open File
                     </button>
