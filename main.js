@@ -9,9 +9,10 @@ let engine;
 
 function createWindow(){
     win = new BrowserWindow({
-        width: 800,
+        width: 1000,
         height: 600,
-        minWidth: 800,  //This is just for the moment, ideally we would have a small mode that looks good too
+        minWidth: 1000,  //This is just for the moment, ideally we would have a small mode that looks good too
+        frame: false,
         webPreferences: {
             webgl: false,
             webaudio: false
@@ -19,8 +20,6 @@ function createWindow(){
     });
 
     win.loadURL(`file://${__dirname}/static/index.html`);
-
-    win.webContents.openDevTools();
 
     win.on('closed', () => {
         win = null;

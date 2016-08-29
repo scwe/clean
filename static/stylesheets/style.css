@@ -9,6 +9,13 @@ body{
     margin-top:20px;
 }
 
+nav{
+    -webkit-app-region : drag
+}
+
+nav > a {
+    -webkit-app-region: no-drag;
+}
 /*
  * Top navigation
  * Hide default border to remove 1px line.
