@@ -8,9 +8,17 @@ let win;
 let engine;
 
 function createWindow(){
-    win = new BrowserWindow({width: 800, height: 600});
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        minWidth: 800,  //This is just for the moment, ideally we would have a small mode that looks good too
+        webPreferences: {
+            webgl: false,
+            webaudio: false
+        }
+    });
 
-    win.loadURL(`file://${__dirname}/index.html`);
+    win.loadURL(`file://${__dirname}/static/index.html`);
 
     win.webContents.openDevTools();
 
@@ -33,7 +41,6 @@ app.on('window-all-closed', () => {
 function loadTorrents(filenames){
 
     if(filenames){
-        console.log("Woohoo we got this far: "+filenames);
         for(var key in filenames){
             var tFile = parseTorrent(fs.readFileSync(filenames[key]));
             var magnet = parseTorrent.toMagnetURI(tFile);
@@ -42,7 +49,6 @@ function loadTorrents(filenames){
 
             engine.on('ready', function(){
                 engine.files.forEach(function(file){
-                    console.log("Downlodaing file: "+file.name);
                     var stream = file.createReadStream();
                     console.log("Streaming file: "+Object.keys(stream));
                 });
@@ -62,7 +68,7 @@ function loadTorrents(filenames){
 ipcMain.on('add_torrent_files', function(event){
     console.log("Recieved the event, trying to open dialog");
     var torrents = dialog.showOpenDialog({
-        title: 'Open Torrent', 
+        title: 'Open Torrent',
         filters: [{name: "torrent", extensions: ["torrent"]}],
         properties: ['openFile', 'multiSelections']}, loadTorrents);
 });
@@ -73,7 +79,7 @@ ipcMain.on('stop_torrent', function(event, torrent_file){
 
 ipcMain.on('cancel_torrent', function(event, torrent_file){
     if(engine){
-        engine.destroy(function(){console.log("FInished destroying");});
+        engine.destroy(function(){console.log("Finished destroying");});
     }
 });
 
