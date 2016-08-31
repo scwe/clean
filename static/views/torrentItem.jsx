@@ -3,14 +3,45 @@
 import React from 'react';
 import '../scripts/controls';
 
-export default class TorrentItem extends React.Component {
+class TorrentItem extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = 'stop';
+    }
+
     playPressed(event){
-        buttonPlayPress();
+        if(this.state === 'stop'){
+            this.state = 'play';
+            $('#button_play > i')
+                .removeClass('fa-play')
+                .addClass('fa-pause')
+                .css('color', 'green');
+
+        }else if(this.state === 'resume'){
+            this.state = 'play';
+            $('#button_play > i')
+                .removeClass('fa-play')
+                .addClass('fa-pause')
+                .css('color', 'green');
+
+        }else if(this.state === 'play'){
+            this.state = 'resume';
+            $('#button_play > i')
+                .removeClass('fa-pause')
+                .addClass('fa-play')
+                .css('color', 'green');
+        }
     }
 
     stopPressed(event){
-        buttonStopPress();
+        this.state = 'stop';
+        $("#button_play > i")
+            .removeClass('fa-pause')
+            .addClass('fa-play').
+            css('color', 'black');
     }
+
     render() {
         return <tr><td>This is a test torrent</td>
             <td>5.63GB</td>
@@ -30,3 +61,5 @@ export default class TorrentItem extends React.Component {
             </td></tr>;
     }
 }
+
+export default TorrentItem;
