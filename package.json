@@ -19,7 +19,9 @@
         "babel-preset-react": "*",
         "babel-register": "*",
         "react": "*",
-        "react-dom": "*"
+        "react-dom": "*",
+        "react-redux": "*",
+        "redux": "*"
     },
     "babel": {
         "presets": ["es2015", "react"],
