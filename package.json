@@ -1,16 +1,28 @@
 {
-    "main": "main.js",
+    "main": "bootstrapper.js",
     "name": "clean-torrent",
     "description": "A clean torrent client written with electron",
     "repository" : {
-        "type": "git", 
-        "url": "https://scwe@github.com/scwe/clean-torrent.git"   
+        "type": "git",
+        "url": "https://scwe@github.com/scwe/clean.git"
     },
-    "license" : "MIT", 
-    "version": "1.1.0",
+    "scripts": {
+        "start" : "electron ."
+    },
+    "license" : "MIT",
+    "version": "0.1.0",
     "dependencies" : {
         "parse-torrent": "*",
         "socket.io": "*",
-        "torrent-stream": "*"
+        "torrent-stream": "*",
+        "babel-preset-es2015": "*",
+        "babel-preset-react": "*",
+        "babel-register": "*",
+        "react": "*",
+        "react-dom": "*"
+    },
+    "babel": {
+        "presets": ["es2015", "react"],
+        "compact": false
     }
 }
