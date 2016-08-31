@@ -6,10 +6,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
         <link rel="stylesheet" href="./stylesheets/font-awesome.css">
         <link rel="stylesheet" href="./stylesheets/style.css"/>
-        <script>
-            require('babel-register');
-            require('./scripts/main');
-        </script>
+
         <script src="./scripts/loadFile.js"></script>
         <script src="./scripts/controls.js"></script>
         <script src="./scripts/app.js"></script>
@@ -63,132 +60,8 @@
                     </button>
                 </div>
             </div>
-            <div class="row top-buffer" id="torrents-table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Progress</th>
-                            <th>Download Speed</th>
-                            <th>Upload Speed</th>
-                            <th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
+            <div class="row top-buffer" id="torrent-table">
 
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
-
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
-
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
-
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
-
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>This is a test torrent</td>
-                            <td>5.63GB</td>
-                            <td><progress class="progress progress-success" value="25" max="100">25%</progress></td>
-                            <td>1.00MB/s</td>
-                            <td>53KB/s</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                                    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
-                                        <i class="fa fa-play" id="button_play_logo"></i>
-                                    </button>
-
-                                    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-                                        <i class="fa fa-stop" id="button_stop_logo"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row" id='react-content'>
             </div>
         </div>
         <!--We use a local version of jquery and require to avoid the problem where it doesn't get imported
@@ -196,5 +69,9 @@
         <script>window.$ = window.jQuery = require('./scripts/jquery-3.1.0.js');</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+        <script>
+            require('babel-register');
+            require('./scripts/main');
+        </script>
     </body>
 </html>
