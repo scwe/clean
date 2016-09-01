@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Clean Torrent</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+        <link rel="stylesheet" href="./stylesheets/font-awesome.css">
+        <link rel="stylesheet" href="./stylesheets/style.css"/>
+
+        <script src="./scripts/loadFile.js"></script>
+        <script src="./scripts/app.js"></script>
+    </head>
+    <body >
+        <div id="app">
+        </div>
+        <nav class="navbar navbar-dark navbar-fixed-top bg-inverse">
+            <!-- The only reason we are using a here is because otherwise bootstrap
+            does funny things to how it looks-->
+            <a class="navbar-brand" id="title-text" href="" onclick="return false;">.clean</a>
+            <div id="navbar">
+                <nav class="nav navbar-nav pull-xs-right">
+                    <a class="nav-item nav-link" href="" onclick="return false;">Stats</a>
+                    <a class="nav-item nav-link" href="" onclick="return false;">Watch</a>
+                    <a class="nav-item nav-link" href="" onclick="return false;">Settings</a>
+                    <a class="nav-item nav-link" href="" onclick="quit()">Quit</a>
+                </nav>
+                <!--<form class="pull-xs-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>-->
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="">All <span class="sr-only">(current)</span></a></li>
+                        <li><a href="">Active</a></li>
+                        <li><a href="">Completed</a></li>
+                        <li><a href="">Queued</a></li>
+                        <li><a href="">Stopped</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container main">
+            <div class="row top-buffer" id="torrent-controls">
+                <div class="col-lg-3 offset-lg-1">
+                    <button type="button" class="btn btn-default pull-right" onclick='loadFiles()'>
+                        Open File
+                    </button>
+                </div>
+                <div class="col-lg-3">
+                    <button type="button" class="btn btn-default centered-col" onclick='cancelTorrent()'>
+                        Cancel Download
+                    </button>
+                </div>
+                <div class="col-lg-3">
+                    <button type="button" class="btn btn-default pull-left" onclick='loadFromMagnet()'>
+                        <i class="fa fa-magnet" aria-hidden="true"></i> Magnet URL
+                    </button>
+                </div>
+            </div>
+            <div class="row top-buffer" id="torrent-table">
+
+            </div>
+        </div>
+        <!--We use a local version of jquery and require to avoid the problem where it doesn't get imported
+        because window.module is defined by the electron runtime-->
+        <script>window.$ = window.jQuery = require('./scripts/jquery-3.1.0.js');</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+        <script>
+            require('babel-register');
+            require('./scripts/main');
+        </script>
+    </body>
+</html>
