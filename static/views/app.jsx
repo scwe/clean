@@ -2,12 +2,12 @@
 import React from 'react';
 import {Link, IndexLink} from 'react-router';
 
-const {electronApp} = require('electron').remote;
+const {app} = require('electron').remote;
 
 
 class App extends React.Component {
     quitClicked(){
-        electronApp.quit();
+        app.quit();
     }
     titleClicked(){
         return false;
