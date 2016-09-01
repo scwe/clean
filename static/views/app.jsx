@@ -15,13 +15,13 @@ class App extends React.Component {
     render() {
         return <div>
         <nav className="navbar navbar-dark navbar-fixed-top bg-inverse">
-            <a className="navbar-brand" id="title-text" href="" onClick={this.titleClicked.bind(this)}>.clean</a>
+            <div className="navbar-brand" id="title-text" href="" onClick={this.titleClicked.bind(this)}>.clean</div>
             <div id="navbar">
                 <nav className="nav navbar-nav pull-xs-right">
-                    <Link className="nav-item nav-link" to="/downloads">Downloads</Link>
-                    <Link className="nav-item nav-link" to="/stats">Stats</Link>
-                    <Link className="nav-item nav-link" to="/watch">Watch</Link>
-                    <Link className="nav-item nav-link" to="/settings">Settings</Link>
+                    <Link className="nav-item nav-link" to="/downloads" activeClassName="active">Downloads</Link>
+                    <Link className="nav-item nav-link" to="/stats" activeClassName="active">Stats</Link>
+                    <Link className="nav-item nav-link" to="/watch" activeClassName="active">Watch</Link>
+                    <Link className="nav-item nav-link" to="/settings" activeClassName="active">Settings</Link>
                     <a className="nav-item nav-link" onClick={this.quitClicked.bind(this)}>Quit</a>
                 </nav>
             </div>
