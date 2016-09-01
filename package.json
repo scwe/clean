@@ -1,31 +1,35 @@
 {
-    "main": "bootstrapper.js",
-    "name": "clean-torrent",
-    "description": "A clean torrent client written with electron",
-    "repository" : {
-        "type": "git",
-        "url": "https://scwe@github.com/scwe/clean.git"
-    },
-    "scripts": {
-        "start" : "electron ."
-    },
-    "license" : "MIT",
-    "version": "0.1.0",
-    "dependencies" : {
-        "parse-torrent": "*",
-        "socket.io": "*",
-        "torrent-stream": "*",
-        "babel-preset-es2015": "*",
-        "babel-preset-react": "*",
-        "babel-register": "*",
-        "react": "*",
-        "react-dom": "*",
-        "react-redux": "*",
-        "react-router": "*",
-        "redux": "*"
-    },
-    "babel": {
-        "presets": ["es2015", "react"],
-        "compact": false
-    }
+  "main": "bootstrapper.js",
+  "name": "clean-torrent",
+  "description": "A clean torrent client written with electron",
+  "repository": {
+    "type": "git",
+    "url": "https://scwe@github.com/scwe/clean.git"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "license": "MIT",
+  "version": "0.1.0",
+  "dependencies": {
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-register": "*",
+    "javascript-state-machine": "^2.3.5",
+    "parse-torrent": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-redux": "*",
+    "react-router": "*",
+    "redux": "*",
+    "socket.io": "*",
+    "torrent-stream": "*"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ],
+    "compact": false
+  }
 }

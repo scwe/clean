@@ -1,11 +1,10 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 
-var parseTorrent = require('parse-torrent');
 var fs = require('fs');
-var torrent = require('torrent-stream');
+var TorrentManager = require('./scripts/torrentManager');
+var Settings = require('./scripts/settings');
 
 let win;
-let engine;
 
 function createWindow(){
     win = new BrowserWindow({
@@ -21,6 +20,7 @@ function createWindow(){
 
     win.loadURL(`file://${__dirname}/static/index.html`);
     win.webContents.openDevTools();
+    Settings.saveSettings();
 
     win.on('closed', () => {
         win = null;
@@ -35,52 +35,29 @@ app.on('window-all-closed', () => {
     if(process.platform !== 'darwin'){
         app.quit();
     }
-
 });
 
-function loadTorrents(filenames){
-
-    if(filenames){
-        for(var key in filenames){
-            var tFile = parseTorrent(fs.readFileSync(filenames[key]));
-            var magnet = parseTorrent.toMagnetURI(tFile);
-
-            engine = torrent(magnet, {path: '~/torrent_test'});
-
-            engine.on('ready', function(){
-                engine.files.forEach(function(file){
-                    var stream = file.createReadStream();
-                    console.log("Streaming file: "+Object.keys(stream));
-                });
-            });
-
-            engine.on('download', function(index){
-                console.log("Finished downloading piece index: "+index);
-            });
-
-            engine.on('torrent', function(){
-                console.log("Finished getting the metadata");
-            });
-        }
-    }
-}
-
 ipcMain.on('add_torrent_files', function(event){
-    console.log("Recieved the event, trying to open dialog");
     var torrents = dialog.showOpenDialog({
         title: 'Open Torrent',
         filters: [{name: "torrent", extensions: ["torrent"]}],
-        properties: ['openFile', 'multiSelections']}, loadTorrents);
+        properties: ['openFile', 'multiSelections']}, function(filenames){
+            if(filenames){
+                for(var key in filenames){
+                    var res = TorrentManager.loadTorrent(filenames[key]);
+                    console.log("Got the torrent, about to send it: "+res);
+                    event.sender.send('torrent_added', res);
+                }
+            }
+        });
 });
 
-ipcMain.on('stop_torrent', function(event, torrent_file){
-
+ipcMain.on('stop_torrent', function(event, id){
+    torrent.stopTorrent(id);
 });
 
-ipcMain.on('cancel_torrent', function(event, torrent_file){
-    if(engine){
-        engine.destroy(function(){console.log("Finished destroying");});
-    }
+ipcMain.on('cancel_torrent', function(event, id){
+    torrent.cancelTorrent(id);
 });
 
 app.on('activate', () => {

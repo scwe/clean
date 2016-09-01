@@ -3,9 +3,18 @@ import React from 'react';
 import Sidebar from '../views/sidebar.jsx';
 import TorrentTable from '../views/torrentTable.jsx';
 
-class Downloads extends React.Component {
-    loadFiles(){
+const {ipcRenderer} = require('electron');
 
+class Downloads extends React.Component {
+    constructor(props){
+        super(props);
+        ipcRenderer.on('torrent_added', this.torrentAdded);
+    }
+    torrentAdded(torrent){
+        console.log("We got the torrent: "+torrent);
+    }
+    loadFiles(){
+        ipcRenderer.send('add_torrent_files');
     }
     cancelTorrent(){
 
