@@ -6,26 +6,36 @@ class TorrentItem extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = 'stop';
+    }
+
+    getState(){
+        if(this.state === 'undefined'){
+            this.state = 'stop';
+        }
+        return this.state;
+    }
+
+    setState(newState){
+        this.state = newState;
     }
 
     playPressed(event){
-        if(this.state === 'stop'){
-            this.state = 'play';
+        if(this.getState() === 'stop'){
+            this.setState('play');
             $('#button_play > i')
                 .removeClass('fa-play')
                 .addClass('fa-pause')
                 .css('color', 'green');
 
-        }else if(this.state === 'resume'){
-            this.state = 'play';
+        }else if(this.getState() === 'resume'){
+            this.setState('play');
             $('#button_play > i')
                 .removeClass('fa-play')
                 .addClass('fa-pause')
                 .css('color', 'green');
 
-        }else if(this.state === 'play'){
-            this.state = 'resume';
+        }else if(this.getState() === 'play'){
+            this.setState('resume');
             $('#button_play > i')
                 .removeClass('fa-pause')
                 .addClass('fa-play')
@@ -34,7 +44,7 @@ class TorrentItem extends React.Component {
     }
 
     stopPressed(event){
-        this.state = 'stop';
+        this.setState('stop');
         $("#button_play > i")
             .removeClass('fa-pause')
             .addClass('fa-play').
