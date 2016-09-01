@@ -1,13 +1,12 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 
 var fs = require('fs');
-var TorrentManager = require('./scripts/torrentManager');
+var TorrentManager = require('./scripts/torrent-manager');
 var Settings = require('./scripts/settings');
-
-let win;
+var ElectronWindow = require('./scripts/electron-window');
 
 function createWindow(){
-    win = new BrowserWindow({
+    var win = new BrowserWindow({
         width: 1000,
         height: 600,
         minWidth: 1000,  //This is just for the moment, ideally we would have a small mode that looks good too
@@ -17,6 +16,8 @@ function createWindow(){
             webaudio: false
         }
     });
+
+    ElectronWindow.setWindow(win);
 
     win.loadURL(`file://${__dirname}/static/index.html`);
     win.webContents.openDevTools();
@@ -44,9 +45,7 @@ ipcMain.on('add_torrent_files', function(event){
         properties: ['openFile', 'multiSelections']}, function(filenames){
             if(filenames){
                 for(var key in filenames){
-                    var res = TorrentManager.loadTorrent(filenames[key]);
-                    console.log("Got the torrent, about to send it: "+res);
-                    event.sender.send('torrent_added', res);
+                    TorrentManager.loadTorrent(filenames[key]);
                 }
             }
         });
@@ -61,7 +60,7 @@ ipcMain.on('cancel_torrent', function(event, id){
 });
 
 app.on('activate', () => {
-    if(win === null){
+    if(ElectronWindow.getWindow() === null){
         createWindow();
     }
 });
