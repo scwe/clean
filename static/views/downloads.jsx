@@ -14,9 +14,8 @@ class Downloads extends React.Component {
 
     }
     render() {
-        return <div>
+        return <div className="container main">
             <Sidebar/>
-            <div className="container main">This is the downloads page</div>
                 <div className="row top-buffer" id="torrent-controls">
                     <div className="col-lg-3 offset-lg-1">
                         <button type="button" className="btn btn-default pull-right" onClick={this.loadFiles.bind(this)}>
