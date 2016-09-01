@@ -9,12 +9,6 @@ import Watch from "../views/watch.jsx";
 import Stats from "../views/stats.jsx";
 import Settings from "../views/settings.jsx";
 
-/*const {app} = require('electron').remote;
-
-function quit(){
-    app.quit();
-}*/
-
 window.onload = function(){
     ReactDOM.render(
         <Router history={hashHistory}>

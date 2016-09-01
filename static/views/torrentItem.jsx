@@ -1,7 +1,6 @@
 'use babel';
 
 import React from 'react';
-import '../scripts/controls';
 
 class TorrentItem extends React.Component {
 

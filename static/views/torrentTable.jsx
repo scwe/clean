@@ -1,8 +1,10 @@
 'use babel';
 
 import React from 'react';
-import TorrentItem from './torrentItem.jsx';
+//import TorrentItem from './torrentItem.jsx';
 
+    //<TorrentItem/>
+    //<TorrentItem/>
 class TorrentTable extends React.Component {
     render() {
         return <table className="table">
@@ -13,8 +15,6 @@ class TorrentTable extends React.Component {
                 </tr>
             </thead>
             <tbody>
-                <TorrentItem/>
-                <TorrentItem/>
             </tbody>
         </table>;
     }
