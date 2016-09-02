@@ -29,3 +29,7 @@ electron .
 * Watch tab, to watch currently downloading tabs
 * Rewrite torrentStream to use rarest piece first when downloading
 * Make some settings 
+* Priority downloads
+* Limit upload and download on a per torrent and global basis
+* Implement filters for active, paused, finished etc.
+* Search feature for torrents
