@@ -6,15 +6,7 @@ import TorrentTable from '../views/torrentTable.jsx';
 const {ipcRenderer} = require('electron');
 
 class Downloads extends React.Component {
-    constructor(props){
-        super(props);
-        ipcRenderer.on('update_view', this.updateView.bind(this));
-    }
-
-    updateView(event){
-        console.log("Updating the view");
-    }
-
+    
     loadFiles(){
         ipcRenderer.send('add_torrent_files');
     }

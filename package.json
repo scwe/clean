@@ -22,6 +22,7 @@
     "react-redux": "*",
     "react-router": "*",
     "redux": "*",
+    "shortid": "^2.2.6",
     "socket.io": "*",
     "torrent-stream": "*"
   },

@@ -1,6 +1,7 @@
 var StateMachine = require('javascript-state-machine');
 var stream = require('torrent-stream');
 var ElectronWindow = require('./electron-window');
+var shortId = require('shortid');
 
 var UPDATE_INTERVAL = 1000;
 var logging = false;
@@ -13,6 +14,7 @@ var Torrent = function(magnet, path){
     this._size = 0;
     this._path = path;
     this._updateInterval = null;
+    this._id = null;
 }
 
 Torrent.prototype = {
@@ -26,17 +28,24 @@ Torrent.prototype = {
     },
     onentersetup: function(event, from, to){
         this.log("Setup", event, from, to);
+
         this._engine = stream(this._magnet);
+        this._id = shortId.generate();
 
         this._engine.on('ready', this.ready.bind(this));
-        this._updateView();
     },
     onenterready: function(event, from, to){
         this.log("Ready", event, from, to);
 
+        this._name = this._engine.torrent.name;
+        console.log("Name is: "+this._name);
+        this._size = this._engine.torrent.length;
+
         this._engine.files.forEach(function(file) {
             var stream = file.createReadStream();
         });
+
+        this._updateView();
         this.download();
 
     },
@@ -92,15 +101,17 @@ Torrent.prototype = {
         return 5;
     },
     getAttributes: function(){
+        console.log("Getting attributes, name is: "+this._name);
         return {
             magnet: this._magnet,
             name: this._name,
             size: this._size,
             path: this._path,
             progress: this.getProgress(),
-            downSpeed: this.getDownSpeed(),
-            upSpeed: this.getUpspeed(),
-            peers: this.getPeers()
+            downspeed: this.getDownSpeed(),
+            upspeed: this.getUpspeed(),
+            peers: this.getPeers(),
+            id: this._id
         };
     }
 };
