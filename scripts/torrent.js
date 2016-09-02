@@ -4,6 +4,7 @@ var ElectronWindow = require('./electron-window');
 var shortId = require('shortid');
 
 var UPDATE_INTERVAL = 1000;
+const FILE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 var logging = false;
 
 var Torrent = function(magnet, path){
@@ -15,6 +16,8 @@ var Torrent = function(magnet, path){
     this._path = path;
     this._updateInterval = null;
     this._id = null;
+    this._lastSwarm = null;
+    this._dataRate = {download: 0, upload: 0};
 }
 
 Torrent.prototype = {
@@ -51,6 +54,7 @@ Torrent.prototype = {
     },
     onenterdownload: function(event, from, to){
         this.log("Download", event, from, to);
+        this._createUpdateInterval();
     },
     onenterpause: function(event, from, to){
         this.log("Pause", event, from, to);
@@ -80,7 +84,7 @@ Torrent.prototype = {
     },
     _createUpdateInterval: function(){
         if(!this._updateInterval){
-            this._updateInterval = setInterval(this.updateView.bind(this), 1000);
+            this._updateInterval = setInterval(this._updateView.bind(this), 1000);
         }
     },
     _clearInterval: function(){
@@ -89,27 +93,58 @@ Torrent.prototype = {
         }
     },
     getProgress: function(){
-        return 0.1;
+        return this._engine.swarm.downloaded / this._size;
     },
-    getDownSpeed: function(){
-        return 1000;
+    getTotalDownloaded: function(){
+        return this._engine.swarm.downloaded;
     },
-    getUpspeed: function(){
-        return 1000;
+    getTotalUploaded: function(){
+        return this._engine.swarm.uploaded;
+    },
+    getDataRate: function(){
+        if (this._lastSwarm) {
+            this._dataRate = {
+                download: (this._engine.swarm.downloaded - this._lastSwarm.downloaded) /
+                (UPDATE_INTERVAL / 1000),
+                upload: (this._engine.swarm.uploaded - this._lastSwarm.uploaded) /
+                (UPDATE_INTERVAL / 1000)
+            };
+        }
+
+        this._lastSwarm = {
+            downloaded: this._engine.swarm.downloaded,
+            uploaded: this._engine.swarm.uploaded,
+        };
+        return this._engine.swarm.downloadSpeed;
     },
     getPeers: function(){
-        return 5;
+        return this._engine.swarm._peers.length;
+    },
+    convertDataRate: function(value){
+        if(!value){
+            value = 0;
+        }
+        var count = 0;
+        while(value > 1000){
+            value = value / 1000;
+            count++;
+        }
+        return value.toString()+FILE_SIZES[count];
     },
     getAttributes: function(){
-        console.log("Getting attributes, name is: "+this._name);
+        var dr = this.getDataRate();
         return {
             magnet: this._magnet,
             name: this._name,
-            size: this._size,
+            size: this.convertDataRate(this._size),
             path: this._path,
+            dataRate : {
+                download: this.convertDataRate(dr.download) + "/s",
+                upload: this.convertDataRate(dr.upload) + "/s"
+            },
             progress: this.getProgress(),
-            downspeed: this.getDownSpeed(),
-            upspeed: this.getUpspeed(),
+            totalDown : this.convertDataRate(this.getTotalDownloaded()),
+            totalUp : this.convertDataRate(this.getTotalUploaded()),
             peers: this.getPeers(),
             id: this._id
         };

@@ -55,8 +55,8 @@ class TorrentItem extends React.Component {
         return <tr><td>{this.props.torrent.name}</td>
             <td>{this.props.torrent.size}</td>
             <td><progress className="progress progress-success" value="25" max="100">{this.props.torrent.progress}</progress></td>
-            <td>{this.props.torrent.downspeed}</td>
-            <td>{this.props.torrent.upspeed}</td>
+            <td>{this.props.torrent.dataRate.download}</td>
+            <td>{this.props.torrent.dataRate.upload}</td>
             <td>
                 <div className="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
                     <button type="button" id="button_play" className="btn" onClick={this.playPressed.bind(this)}>
