@@ -52,6 +52,7 @@ class TorrentItem extends React.Component {
     }
 
     render() {
+        console.log("Rendering torrent item "+JSON.stringify(this.props.torrent));
         return <tr><td>{this.props.torrent.name}</td>
             <td>{this.props.torrent.size}</td>
             <td><progress className="progress progress-success" value="25" max="100">{this.props.torrent.progress}</progress></td>

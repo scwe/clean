@@ -3,7 +3,7 @@ var stream = require('torrent-stream');
 var ElectronWindow = require('./electron-window');
 var shortId = require('shortid');
 
-var UPDATE_INTERVAL = 1000;
+var UPDATE_INTERVAL = 5000;
 const FILE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 var logging = false;
 
@@ -79,7 +79,6 @@ Torrent.prototype = {
         this.log("Complete", event, from, to);
     },
     _updateView: function(){
-        console.log("Updating the view");
         ElectronWindow.getWindow().webContents.send('update_view', this.getAttributes());
     },
     _createUpdateInterval: function(){
@@ -115,7 +114,7 @@ Torrent.prototype = {
             downloaded: this._engine.swarm.downloaded,
             uploaded: this._engine.swarm.uploaded,
         };
-        return this._engine.swarm.downloadSpeed;
+        return this._dataRate;
     },
     getPeers: function(){
         return this._engine.swarm._peers.length;
@@ -129,7 +128,7 @@ Torrent.prototype = {
             value = value / 1000;
             count++;
         }
-        return value.toString()+FILE_SIZES[count];
+        return value.toPrecision(3).toString()+FILE_SIZES[count];
     },
     getAttributes: function(){
         var dr = this.getDataRate();
