@@ -3,21 +3,36 @@
     <head>
         <meta charset="UTF-8">
         <title>Clean Torrent</title>
-        <link rel="stylesheet" href="./stylesheets/font-awesome.css"/>
-        <link rel="stylesheet" href="./stylesheets/style.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
+        <link rel="stylesheet" href="css/font-awesome.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/materialize.css"/>
     </head>
     <body>
         <div id="app">
         </div>
         <!--We use a local version of jquery and require to avoid the problem where it doesn't get imported
         because window.module is defined by the electron runtime-->
-        <script>window.$ = window.jQuery = require('./scripts/jquery-3.1.0.js');</script>
-        <script src="./scripts/hammer.min.js"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {console.log("Removing module...");window.module = module; module = undefined;}</script>
+
+        <!-- normal script imports etc  -->
+        <script src="js/jquery-3.1.0.js"></script>
+        <script src="js/hammer.min.js"/>
+        <script src="js/materialize.js"></script>
+
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
         <script>
             require('babel-register');
-            require('./scripts/app');
+            require('./js/app');
+        </script>
+        <script>
+        (function($){
+            $(function(){
+                $('.button-collapse').sideNav();
+            }); // end of document ready
+        })(jQuery); // end of jQuery name space
         </script>
     </body>
 </html>
