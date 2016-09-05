@@ -3,27 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Clean Torrent</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
-        <link rel="stylesheet" href="./stylesheets/font-awesome.css">
+        <link rel="stylesheet" href="./stylesheets/font-awesome.css"/>
         <link rel="stylesheet" href="./stylesheets/style.css"/>
-        <script src="./scripts/store.min.js"/>
-        <script src="./scripts/jquery.resizableColumns.min.js"/>
-        <script>
-        $(function(){
-            $("table").resizableColumns({
-                store: store
-            });
-        });
-        </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css"/>
     </head>
-    <body >
+    <body>
         <div id="app">
         </div>
         <!--We use a local version of jquery and require to avoid the problem where it doesn't get imported
         because window.module is defined by the electron runtime-->
         <script>window.$ = window.jQuery = require('./scripts/jquery-3.1.0.js');</script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+        <script src="./scripts/hammer.min.js"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
         <script>
             require('babel-register');
             require('./scripts/app');
