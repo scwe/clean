@@ -13,18 +13,18 @@ class Navbar extends React.Component {
     render() {
         return <div>
             <div className="navbar-fixed">
-                <nav>
+                <nav className="drag">
                     <div className="nav-wrapper blue-grey">
                         <div className="brand-logo" id="title">.clean</div>
-                        <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
-                        <ul className="right hide-on-med-and-down" id='nav-links'>
+                        <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons no-drag">menu</i></a>
+                        <ul className="right hide-on-med-and-down no-drag">
                             <NavItem index={true} to="/">Downloads</NavItem>
                             <NavItem to="/stats">Stats</NavItem>
                             <NavItem to="/watch">Watch</NavItem>
                             <NavItem to="/settings">Settings</NavItem>
                             <li><a onClick={this.quitClicked.bind(this)}>Quit</a></li>
                         </ul>
-                        <ul className="side-nav" id="mobile-demo">
+                        <ul className="side-nav no-drag" id="mobile-demo">
                             <NavItem index={true} to="/">Downloads</NavItem>
                             <NavItem to="/stats">Stats</NavItem>
                             <NavItem to="/watch">Watch</NavItem>
