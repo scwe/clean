@@ -37,21 +37,7 @@ class TorrentTable extends React.Component {
                 <TorrentItem torrent={torrent} key={torrent.id}/>
             );
         });
-        return <table className="table" data-resizable-columns-id="torrent-table">
-            <thead>
-                <tr>
-                    <th data-resizable-column-id="torrent-name">Name</th>
-                    <th data-resizable-column-id="torrent-size">Size</th>
-                    <th data-resizable-column-id="torrent-progress">Progress</th>
-                    <th data-resizable-column-id="torrent-downspeed">Download Speed</th>
-                    <th data-resizable-column-id="torrent-upspeed">Upload Speed</th>
-                    <th data-resizable-column-id="torrent-controls"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {torrentItems}
-            </tbody>
-        </table>;
+        return <ul className="collapsible popout" data-collapsible="accordion">{torrentItems}</ul>;
     }
 }
 

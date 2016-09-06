@@ -22,53 +22,41 @@ class TorrentItem extends React.Component {
     playPressed(event){
         if(this.getState() === 'stop'){
             this.setState('play');
-            $('#button_play > i')
-                .removeClass('fa-play')
-                .addClass('fa-pause')
-                .css('color', 'green');
-
         }else if(this.getState() === 'resume'){
             this.setState('play');
-            $('#button_play > i')
-                .removeClass('fa-play')
-                .addClass('fa-pause')
-                .css('color', 'green');
-
         }else if(this.getState() === 'play'){
             this.setState('resume');
-            $('#button_play > i')
-                .removeClass('fa-pause')
-                .addClass('fa-play')
-                .css('color', 'green');
         }
     }
 
     stopPressed(event){
         this.setState('stop');
-        $("#button_play > i")
-            .removeClass('fa-pause')
-            .addClass('fa-play').
-            css('color', 'black');
     }
 
     render() {
-        console.log("Rendering torrent item "+JSON.stringify(this.props.torrent));
-        return <tr><td>{this.props.torrent.name}</td>
+        var old = <tr><td>{this.props.torrent.name}</td>
             <td>{this.props.torrent.size}</td>
             <td><progress className="progress progress-success" value={this.props.torrent.progress} max="100"></progress></td>
             <td>{this.props.torrent.dataRate.download}</td>
             <td>{this.props.torrent.dataRate.upload}</td>
             <td>
                 <div className="btn-group btn-group-sm" role="group" aria-label="Toolbar with button groups">
-                    <button type="button" id="button_play" className="btn" onClick={this.playPressed.bind(this)}>
-                        <i className="fa fa-play" id="button_play_logo"></i>
-                    </button>
+                    <a id="button_play" className="btn waves-effect" onClick={this.playPressed.bind(this)}>
+                        <i className="material-icons">play_arrow</i>
+                    </a>
 
-                    <button type="button" id="button_stop" className="btn" onClick={this.stopPressed.bind(this)}>
-                        <i className="fa fa-stop" id="button_stop_logo"></i>
-                    </button>
+                    <a id="button_stop" className="btn waves-effect" onClick={this.stopPressed.bind(this)}>
+                        <i className="material-icons">stop</i>
+                    </a>
                 </div>
             </td></tr>;
+
+            var old2 = <li>
+                    <div className="collapsible-header"><i className="material-icons">file_download</i>{this.props.torrent.name}</div>
+                    <div className="collapsible-body"><p>{JSON.stringify(this.props.torrent)}</p></div>
+                </li>;
+
+        return old2;
     }
 }
 
