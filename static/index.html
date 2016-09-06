@@ -14,11 +14,11 @@
         because window.module is defined by the electron runtime-->
 
         <!-- Insert this line above script imports  -->
-        <script>if (typeof module === 'object') {console.log("Removing module...");window.module = module; module = undefined;}</script>
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
         <!-- normal script imports etc  -->
         <script src="js/jquery-3.1.0.js"></script>
-        <script src="js/hammer.min.js"/>
+        <script src="js/hammer.min.js"></script>
         <script src="js/materialize.js"></script>
 
         <!-- Insert this line after script imports -->

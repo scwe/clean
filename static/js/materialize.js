@@ -5,6 +5,7 @@
  */
 // Check for jQuery.
 if (typeof(jQuery) === 'undefined') {
+    console.log("Jquery is undefined");
   var jQuery;
   // Check if require is a defined function.
   if (typeof(require) === 'function') {
