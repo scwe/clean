@@ -15,24 +15,19 @@ class TorrentButtons extends React.Component {
 
     }
 
-    render() {
-        return <div>
-        <div className="col-lg-3 offset-lg-1">
-            <button type="button" className="btn btn-default pull-right" onClick={this.loadFiles.bind(this)}>
-                Open File
-            </button>
-        </div>
-        <div className="col-lg-3">
-            <button type="button" className="btn btn-default centered-col" onClick={this.cancelTorrent.bind(this)}>
-                Cancel Download
-            </button>
-        </div>
-        <div className="col-lg-3">
-            <button type="button" className="btn btn-default pull-left" onClick={this.loadFromMagnet.bind(this)}>
-                <i className="fa fa-magnet" aria-hidden="true"></i> Magnet URL
-                </button>
+    render(){
+        return (
+            <div className="fixed-action-btn">
+                <a className="btn-floating btn-large red" onClick={this.loadFiles.bind(this)}>
+                    <i className="large material-icons md-36">add</i>
+                </a>
+                <ul>
+                    <li><a className="btn-floating yellow darken-1" onClick={this.cancelTorrent.bind(this)}><i className="material-icons">cancel</i></a></li>
+                    <li><a className="btn-floating blue" onClick={this.loadFiles.bind(this)}><i className="material-icons">insert_drive_file</i></a></li>
+                    <li><a className="btn-floating green" onClick={this.loadFromMagnet.bind(this)}><i className="fa fa-magnet"></i></a></li>
+                </ul>
             </div>
-        </div>;
+        );
     }
 }
 

@@ -2,6 +2,7 @@
 import React from 'react';
 import {Link, IndexLink} from 'react-router';
 import NavItem from './navitem.jsx';
+import TorrentButtons from './torrentButtons.jsx';
 
 const {app} = require('electron').remote;
 
@@ -35,6 +36,7 @@ class Navbar extends React.Component {
                 </nav>
 
             </div>
+            <TorrentButtons/>
             {this.props.children}
         </div>;
     }

@@ -2,7 +2,6 @@
 import React from 'react';
 import Sidebar from '../views/sidebar.jsx';
 import TorrentTable from '../views/torrentTable.jsx';
-import TorrentButtons from '../views/torrentButtons.jsx';
 
 
 class Downloads extends React.Component {
@@ -17,12 +16,7 @@ class Downloads extends React.Component {
                 </div>
                 <div className="col s12 m8 l9">
                     <div className="container">
-                        <div>
-                            <TorrentButtons/>
-                        </div>
-                        <div className="row top-buffer" id="torrent-table">
-                            <TorrentTable/>
-                        </div>
+                        <TorrentTable/>
                     </div>
                 </div>
             </div>);
