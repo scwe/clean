@@ -8,13 +8,20 @@ const {ipcRenderer} = require('electron');
 class Downloads extends React.Component {
     constructor(props){
         super(props);
-        ipcRenderer.on('update_view', this.updateView.bind(this));
+        this._updateViewCallback = this.updateView.bind(this);
 
         this.state = {
             torrents : []
         };
     }
 
+    componentDidMount(){
+        ipcRenderer.on('update_view', this._updateViewCallback);
+    }
+
+    componentWillUnmount(){
+        ipcRenderer.removeListener('update_view', this._updateViewCallback);
+    }
     updateTorrent(current, attributes){
         for(var i in current){
             if(current[i].id === attributes.id){
