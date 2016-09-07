@@ -4,12 +4,12 @@ import {Link, IndexLink} from 'react-router';
 import NavItem from './navitem.jsx';
 import TorrentButtons from './torrentButtons.jsx';
 
-const {app} = require('electron').remote;
+const {ipcRenderer} = require('electron');
 
 
 class Navbar extends React.Component {
     quitClicked(){
-        app.quit();
+        ipcRenderer.send('window-closed');
     }
     render() {
         return <div>

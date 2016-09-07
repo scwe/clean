@@ -19,12 +19,14 @@ function createWindow(){
 
     ElectronWindow.setWindow(win);
 
+    win.on('close', function(event){
+        console.log("trying to close the main window, preventing it");
+        TorrentManager.cancelTorrents();
+        console.log("Got here");
+    })
+
     win.loadURL(`file://${__dirname}/static/index.html`);
     win.webContents.openDevTools();
-
-    win.on('closed', () => {
-        win = null;
-    });
 }
 
 app.on('ready', createWindow);
@@ -32,6 +34,7 @@ app.on('ready', createWindow);
 app.on('window-all-closed', () => {
     //We don't quit the app on mac, because it is more common for the top bar
     //to stay active
+
     if(process.platform !== 'darwin'){
         app.quit();
     }
@@ -48,6 +51,10 @@ ipcMain.on('add_torrent_files', function(event){
                 }
             }
         });
+});
+
+ipcMain.on('window-closed', function(event){
+    ElectronWindow.getWindow().close();
 });
 
 ipcMain.on('stop_torrent', function(event, id){

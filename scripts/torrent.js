@@ -5,7 +5,7 @@ var shortId = require('shortid');
 
 var UPDATE_INTERVAL = 5000;
 const FILE_SIZES = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
-var logging = false;
+var logging = true;
 
 var Torrent = function(magnet, path){
     //This is the constructor, fields go here
@@ -85,7 +85,9 @@ Torrent.prototype = {
         this.log("Complete", event, from, to);
     },
     _updateView: function(){
-        ElectronWindow.getWindow().webContents.send('update_view', this.getAttributes());
+        if(ElectronWindow.getWindow() !== null){
+            ElectronWindow.getWindow().webContents.send('update_view', this.getAttributes());
+        }
     },
     _createUpdateInterval: function(){
         if(!this._updateInterval){
