@@ -40,7 +40,7 @@ body{
 }
 
 .nav-wrapper .side-nav{
-    top: 63px;
+    top: 56px;
     z-index: -999;
 }
 
@@ -64,5 +64,8 @@ body{
     #custom-side-nav {
         position: fixed;
         width: inherit;
+    }
+    .nav-wrapper .side-nav{
+        top: 63px;
     }
 }
