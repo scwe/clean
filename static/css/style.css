@@ -44,6 +44,12 @@ body{
     z-index: -999;
 }
 
+@media(min-width: 993px){
+    #title {
+        padding-left: 15px;
+    }
+}
+
 #custom-side-nav {
     left: 0;
     margin: 0;
