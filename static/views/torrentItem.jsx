@@ -46,11 +46,11 @@ class TorrentItem extends React.Component {
                     </div>
                 </div>
                 <div className="col s6">
-                    <i className="material-icons">file_download</i>
+                    <i className="material-icons left">file_download</i>
                     {this.props.torrent.dataRate.download}
                 </div>
                 <div className="col s6">
-                    <i className="material-icons">file_upload</i>
+                    <i className="material-icons left">file_upload</i>
                     {this.props.torrent.dataRate.upload}
                 </div>
 
