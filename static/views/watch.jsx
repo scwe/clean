@@ -4,7 +4,9 @@ import React from 'react';
 
 class Watch extends React.Component {
     render() {
-        return <div>This is the watch page</div>;
+        return <div className="container">
+            <p className="flow-text center-align">This is the watch page</p>
+        </div>;
     }
 }
 
