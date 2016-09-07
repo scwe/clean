@@ -15,6 +15,8 @@ class Downloads extends React.Component {
         };
     }
 
+    //This can be improved, we only need to update the progress and the download
+    //speed every tick, nothing else...
     componentDidMount(){
         ipcRenderer.on('update_view', this._updateViewCallback);
     }
