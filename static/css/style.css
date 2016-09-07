@@ -55,6 +55,9 @@ body{
     z-index: -999;
 }
 
+.collapsible{
+    padding-top: 20px;
+}
 @media(min-width: 993px){
     #title {
         padding-left: 15px;
