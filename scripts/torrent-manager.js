@@ -26,7 +26,7 @@ var Manager = function(){
     }
 
     function _addTorrent(magnetLink){
-        var torrent = new Torrent(magnetLink);
+        var torrent = new Torrent(magnetLink, "saved-torrents/");
         torrents.magnetLink = torrent;
         torrent.setup();
         return torrent;

@@ -31,6 +31,17 @@ body{
     padding: 0 32px;
 }
 
+.wrap-word{
+    /*overflow-wrap: break-word; /*This keeps it fixed in the container, although over flows into a new line*/
+    white-space: nowrap;  /* This just overflows the container*/
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.small-flow{
+    font-size: 0.8em;
+}
+
 .row .unpadding {
     padding: 0;
 }

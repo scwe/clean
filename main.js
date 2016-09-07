@@ -21,7 +21,6 @@ function createWindow(){
 
     win.loadURL(`file://${__dirname}/static/index.html`);
     win.webContents.openDevTools();
-    Settings.saveSettings();
 
     win.on('closed', () => {
         win = null;

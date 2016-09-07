@@ -37,7 +37,9 @@ Torrent.prototype = {
     onentersetup: function(event, from, to){
         this.log("Setup", event, from, to);
 
-        this._engine = stream(this._magnet);
+        this._engine = stream(this._magnet, {
+            path: this._path
+        });
         this._id = shortId.generate();
 
         this._engine.on('ready', this.ready.bind(this));
@@ -46,7 +48,6 @@ Torrent.prototype = {
         this.log("Ready", event, from, to);
 
         this._name = this._engine.torrent.name;
-        console.log("Name is: "+this._name);
         this._size = this._engine.torrent.length;
 
         this._engine.files.forEach(function(file) {
@@ -107,6 +108,7 @@ Torrent.prototype = {
     },
     getDataRate: function(){
         if (this._lastSwarm) {
+            console.log("Getting data rate, last is: "+JSON.stringify(this._lastSwarm)+" swarm is: "+this._engine.swarm.downloaded+" and up "+this._engine.swarm.uploaded);
             this._dataRate = {
                 download: (this._engine.swarm.downloaded - this._lastSwarm.downloaded) /
                 (UPDATE_INTERVAL / 1000),
