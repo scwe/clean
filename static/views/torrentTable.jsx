@@ -11,7 +11,7 @@ class TorrentTable extends React.Component {
                 <TorrentItem torrent={torrent} key={torrent.id}/>
             );
         });
-        return <ul className="collapsible popout" data-collapsible="accordion">{torrentItems}</ul>;
+        return <ul className="collapsible popout" data-collapsible="expandable">{torrentItems}</ul>;
     }
 }
 

@@ -39,22 +39,20 @@ class TorrentItem extends React.Component {
         };
 
         return <li>
-                <div className="collapsible-header">
-                    <div className="row">
-                        <div className="col s12">
-                            <div className="flow-text">
-                                <div className="center-align wrap-word small-flow">{this.props.torrent.name}</div>
-                            </div>
-                        </div>
-                        <div className="col s6">
-                            <i className="material-icons">file_download</i>
-                            {this.props.torrent.dataRate.download}
-                        </div>
-                        <div className="col s6">
-                            <i className="material-icons">file_upload</i>
-                            {this.props.torrent.dataRate.upload}
-                        </div>
+            <div className="collapsible-header">
+                <div className="col s12">
+                    <div className="flow-text">
+                        <div className="center-align wrap-word small-flow">{this.props.torrent.name}</div>
                     </div>
+                </div>
+                <div className="col s6">
+                    <i className="material-icons">file_download</i>
+                    {this.props.torrent.dataRate.download}
+                </div>
+                <div className="col s6">
+                    <i className="material-icons">file_upload</i>
+                    {this.props.torrent.dataRate.upload}
+                </div>
 
                     <div className="progress">
                         <div className="determinate" style={progressStyle}></div>
