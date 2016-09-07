@@ -4,7 +4,9 @@ import React from 'react';
 import TorrentItem from './torrentItem.jsx';
 
 class TorrentTable extends React.Component {
-
+    componentDidMount(){
+        $('.collapsible').collapsible();
+    }
     render() {
         var torrentItems = this.props.torrents.map(function(torrent){
             return (
