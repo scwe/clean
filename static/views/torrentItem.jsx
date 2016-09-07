@@ -53,7 +53,7 @@ class TorrentItem extends React.Component {
 
             var old2 = <li>
                     <div className="collapsible-header"><i className="material-icons">file_download</i>{this.props.torrent.name}</div>
-                    <div className="collapsible-body"><p>{JSON.stringify(this.props.torrent)}</p></div>
+                    <div className="collapsible-body"><p>{this.props.torrent.state}</p></div>
                 </li>;
 
         return old2;

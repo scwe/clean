@@ -18,13 +18,18 @@ var Torrent = function(magnet, path){
     this._id = null;
     this._lastSwarm = null;
     this._dataRate = {download: 0, upload: 0};
+
+    this.startup();
 }
 
 Torrent.prototype = {
     log: function(name, event, from, to){
         if(logging){
-            console.log(name+" of the torrent "+this._magnet+" : "+event+" "+from+" "+to);
+            console.log(name+" of the torrent "+this._name+" : "+event+" "+from+" "+to+" current is now: "+this.current);
         }
+    },
+    onstartup: function(event, from, to){
+        this.log("Startup", event, from, to);
     },
     onenterrestore: function(event, from, to){
         this.log("Restore", event, from, to);
@@ -145,16 +150,18 @@ Torrent.prototype = {
             totalDown : this.convertDataRate(this.getTotalDownloaded()),
             totalUp : this.convertDataRate(this.getTotalUploaded()),
             peers: this.getPeers(),
-            id: this._id
+            id: this._id,
+            state: this.current
         };
     }
 };
 
-var state = StateMachine.create({
+StateMachine.create({
     target : Torrent.prototype,
     events : [
-        {name: "restore", from: "none", to: "restore"},
-        {name: "setup", from: ["restore", "none"], to: "setup"},
+        {name: "startup", from: "none", to: "startup"},
+        {name: "restore", from: "startup", to: "restore"},
+        {name: "setup", from: ["restore", "startup"], to: "setup"},
         {name: "ready", from: "setup", to: "ready"},
         {name: "download", from: ["pause", "ready"], to: "download"},
         {name: "pause", from: "download", to: "pause"},
