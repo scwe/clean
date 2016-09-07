@@ -26,10 +26,10 @@ class Navbar extends React.Component {
                             <li><a onClick={this.quitClicked.bind(this)}>Quit</a></li>
                         </ul>
                         <ul className="side-nav no-drag" id="mobile-demo">
-                            <NavItem index={true} to="/">Downloads</NavItem>
-                            <NavItem to="/stats">Stats</NavItem>
-                            <NavItem to="/watch">Watch</NavItem>
-                            <NavItem to="/settings">Settings</NavItem>
+                            <NavItem className="waves-effect" index={true} to="/">Downloads</NavItem>
+                            <NavItem className="waves-effect" to="/stats">Stats</NavItem>
+                            <NavItem className="waves-effect" to="/watch">Watch</NavItem>
+                            <NavItem className="waves-effect" to="/settings">Settings</NavItem>
                             <li><a onClick={this.quitClicked.bind(this)}>Quit</a></li>
                         </ul>
                     </div>
