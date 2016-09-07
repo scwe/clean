@@ -27,8 +27,9 @@ electron .
 #### TODO ####
 
 * Watch tab, to watch currently downloading tabs
+* Pause and resume buttons
 * Rewrite torrentStream to use rarest piece first when downloading
-* Make some settings 
+* Make some settings
 * Priority downloads
 * Limit upload and download on a per torrent and global basis
 * Implement filters for active, paused, finished etc.
