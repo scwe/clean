@@ -19,12 +19,6 @@ function createWindow(){
 
     ElectronWindow.setWindow(win);
 
-    win.on('close', function(event){
-        console.log("trying to close the main window, preventing it");
-        TorrentManager.cancelTorrents();
-        console.log("Got here");
-    })
-
     win.loadURL(`file://${__dirname}/static/index.html`);
     win.webContents.openDevTools();
 }
@@ -34,6 +28,7 @@ app.on('ready', createWindow);
 app.on('window-all-closed', () => {
     //We don't quit the app on mac, because it is more common for the top bar
     //to stay active
+    TorrentManager.cancelTorrents();
 
     if(process.platform !== 'darwin'){
         app.quit();
