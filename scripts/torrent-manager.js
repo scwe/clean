@@ -34,8 +34,6 @@ var Manager = function(){
 
     function cancelTorrents(){
         for(var t in torrents){
-            //true for delete files, this is just a temporary measure
-            console.log("Canceling torrent: "+torrents[t]);
             torrents[t].delete(true);
         }
     }

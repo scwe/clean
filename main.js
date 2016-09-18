@@ -29,6 +29,7 @@ app.on('window-all-closed', () => {
     //We don't quit the app on mac, because it is more common for the top bar
     //to stay active
     TorrentManager.cancelTorrents();
+    Settings.saveSettings();
 
     if(process.platform !== 'darwin'){
         app.quit();
