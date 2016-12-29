@@ -1,16 +1,28 @@
 var parse = require('parse-torrent');
 var Torrent = require('./torrent');
 var fs = require('fs');
+var dl = require('./torrent/download');
 
 var torrents = {};
 
 var Manager = function(){
 
     function loadTorrent(filename){
-        var tFile = parse(fs.readFileSync(filename));
+        console.log("Got file "+filename);
+        var file = fs.readFileSync(filename);
+        var tFile = parse(file);
         var magnet = parse.toMagnetURI(tFile);
 
         return addFromMagnet(magnet);
+    }
+
+    function testTorrent(filename, onClose){
+        console.log("Testing torrent downloading with: "+filename);
+        var file = fs.readFileSync(filename);
+        var tFile = parse(file);
+        var magnet = parse.toMagnetURI(tFile);
+
+        dl.connect(tFile, onClose);
     }
 
     function addFromMagnet(magnet){
@@ -50,7 +62,8 @@ var Manager = function(){
         stopTorrent: stopTorrent,
         cancelTorrent: cancelTorrent,
         addFromMagnet: addFromMagnet,
-        cancelTorrents: cancelTorrents
+        cancelTorrents: cancelTorrents,
+        testTorrent: testTorrent
     }
 }
 

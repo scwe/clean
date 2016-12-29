@@ -16,16 +16,22 @@
     "babel-preset-react": "*",
     "babel-preset-stage-2": "^6.13.0",
     "babel-register": "*",
+    "bencode": "^0.10.0",
+    "bn.js": "^4.11.6",
     "javascript-state-machine": "^2.3.5",
     "parse-torrent": "*",
+    "randombytes": "^2.0.3",
     "react": "*",
     "react-dom": "*",
     "react-redux": "*",
     "react-router": "*",
     "redux": "*",
+    "sha1": "^1.1.1",
     "shortid": "^2.2.6",
     "socket.io": "*",
-    "torrent-stream": "*"
+    "torrent-discovery": "^8.1.1",
+    "torrent-stream": "*",
+    "underscore": "^1.8.3"
   },
   "babel": {
     "presets": [

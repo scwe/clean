@@ -5,7 +5,27 @@ var TorrentManager = require('./scripts/torrent-manager');
 var Settings = require('./scripts/settings');
 var ElectronWindow = require('./scripts/electron-window');
 
+function cleanUp(){
+    console.log("Finished getting torrent, cleaning up");
+    app.quit();
+}
+
 function createWindow(){
+    if(process.argv.length > 2 && process.argv[2] === "--torrent" || process.argv[2] === "-t"){
+        console.log("Running in torrent test mode");
+        if(process.argv.length > 3){
+            var filename = process.argv[3];
+            TorrentManager.testTorrent(filename, cleanUp);
+        }else{
+            var files = getTorrentFile(false);
+            if(files){
+                for(var k in files){
+                    TorrentManager.testTorrent(files[k], cleanUp);
+                }
+            }
+        }
+        return;
+    }
     var win = new BrowserWindow({
         width: 1000,
         height: 600,
@@ -23,6 +43,17 @@ function createWindow(){
     win.webContents.openDevTools();
 }
 
+function getTorrentFile(multi){
+    var props = ['openFile'];
+    if(multi){
+        props.push('multiSelections');
+    }
+    return dialog.showOpenDialog({
+        title: 'Open Torrent',
+        filters: [{name: "torrent", extensions: ["torrent"]}],
+        properties: props});
+}
+
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
@@ -37,16 +68,12 @@ app.on('window-all-closed', () => {
 });
 
 ipcMain.on('add_torrent_files', function(event){
-    var torrents = dialog.showOpenDialog({
-        title: 'Open Torrent',
-        filters: [{name: "torrent", extensions: ["torrent"]}],
-        properties: ['openFile', 'multiSelections']}, function(filenames){
-            if(filenames){
-                for(var key in filenames){
-                    TorrentManager.loadTorrent(filenames[key]);
-                }
-            }
-        });
+    var files = getTorrentFile(true);
+    if(files){
+        for(var k in files){
+            TorrentManager.loadTorrent(files[k]);
+        }
+    }
 });
 
 ipcMain.on('window-closed', function(event){
@@ -62,6 +89,7 @@ ipcMain.on('cancel_torrent', function(event, id){
 });
 
 app.on('activate', () => {
+    console.log("Activate");
     if(ElectronWindow.getWindow() === null){
         createWindow();
     }
