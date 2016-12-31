@@ -14,6 +14,6 @@ var event = {
 };
 
 module.exports = {
-    event: event,
-    action: action
+  event,
+  action
 };

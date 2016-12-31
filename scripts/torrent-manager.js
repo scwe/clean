@@ -18,9 +18,9 @@ var Manager = function(){
 
     function testTorrent(filename, onClose){
         console.log("Testing torrent downloading with: "+filename);
-        var file = fs.readFileSync(filename);
-        var tFile = parse(file);
-        var magnet = parse.toMagnetURI(tFile);
+        const file = fs.readFileSync(filename);
+        const tFile = parse(file);
+        const magnet = parse.toMagnetURI(tFile);
 
         dl.connect(tFile, onClose);
     }
