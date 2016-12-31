@@ -7,7 +7,7 @@ import Navbar from '../views/navbar.jsx';
 import Downloads from '../views/downloads.jsx';
 import Watch from "../views/watch.jsx";
 import Stats from "../views/stats.jsx";
-import Settings from "../views/settings.jsx";
+import Settings from "../views/settings/settings.jsx";
 
 window.onload = function(){
     ReactDOM.render(

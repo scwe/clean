@@ -31,13 +31,11 @@ var Manager = function(){
         torrent.setup();
         return torrent;
     }
+
     function cancelTorrents(){
-        console.log("Cancelling torrents length: "+torrents.length);
-        /*for(var t in torrents){
-            //true for delete files, this is just a temporary measure
-            console.log("Canceling torrent: "+torrents[t]);
+        for(var t in torrents){
             torrents[t].delete(true);
-        }*/
+        }
     }
 
     function stopTorrent(id){
@@ -51,7 +49,8 @@ var Manager = function(){
         loadTorrent : loadTorrent,
         stopTorrent: stopTorrent,
         cancelTorrent: cancelTorrent,
-        addFromMagnet: addFromMagnet
+        addFromMagnet: addFromMagnet,
+        cancelTorrents: cancelTorrents
     }
 }
 
