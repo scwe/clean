@@ -1,0 +1,59 @@
+{
+    "info": {
+        "files": [
+            [
+                "Object"
+            ],
+            [
+                "Object"
+            ]
+        ],
+        "name": "<Buffer 41 6c 69 63 78 ... >",
+        "piece length": 1048576,
+        "pieces": "<Buffer 7b e5 43 bd 96>"
+    },
+    "infoBuffer": "<Buffer 64 35 3a 66 69 6c 65 73>",
+    "infoHash": "34ddd13372a9fb90704f632d374ea7ff2e1ef0d6",
+    "infoHashBuffer": "<Buffer 34 dd d1 33 72 a9 fb 90 70 4f 63 2d 37 4e a7 ff 2e 1e f0 d6>",
+    "name": "Alice.Through.the.Looking.Glass.2016.720p.WEBRip.x264.AAC-ETRG",
+    "created": "2016-09-17T07:53:22.000Z",
+    "createdBy": "uTorrent/3.4.8",
+    "announce": [
+        "udp://9.rarbg.me:2730/announce",
+        "udp://9.rarbg.to:2710/announce",
+        "udp://eddie4.nl:6969/announce",
+        "udp://p4p.arenabg.ch:1337/announce",
+        "udp://p4p.arenabg.com:1337/announce",
+        "udp://torrent.gresille.org:80/announce/announce",
+        "udp://tracker.coppersurfer.tk:6969/announce",
+        "udp://tracker.ilibr.org:6969/announce",
+        "udp://tracker.ilibr.org:80/announce",
+        "udp://tracker.internetwarriors.net:1337/announce",
+        "udp://tracker.leechers-paradise.org:6969/announce",
+        "udp://tracker.opentrackr.org:1337/announce",
+        "udp://zer0day.to:1337/announce"
+    ],
+    "urlList": [],
+    "files": [
+        {
+            "path": "Alice.Through.the.Looking.Glass.2016.720p.WEBRip.x264.AAC-ETRG/Torrent Downloaded From ExtraTorrent.cc.txt",
+            "name": "Torrent Downloaded From ExtraTorrent.cc.txt",
+            "length": 341,
+            "offset": 0
+        },
+        {
+            "path": "Alice.Through.the.Looking.Glass.2016.720p.WEBRip.x264.AAC-ETRG/Alice.Through.the.Looking.Glass.2016.720p.WEBRip.x264.AAC-ETRG.mp4",
+            "name": "Alice.Through.the.Looking.Glass.2016.720p.WEBRip.x264.AAC-ETRG.mp4",
+            "length": 933542703,
+            "offset": 341
+        }
+    ],
+    "length": 933543044,
+    "pieceLength": 1048576,
+    "lastPieceLength": 310404,
+    "pieces": [
+        "7be543bd966898d92623c09ff68ca83a48d489f2",
+        "34f811c2571d3813f95607a1e72ffc3949fd8ab7",
+        "..."
+    ]
+}
