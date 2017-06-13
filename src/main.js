@@ -6,7 +6,6 @@ var Settings = require('./settings');
 var ElectronWindow = require('./electron-window');
 
 function cleanUp(){
-    console.log("Finished getting torrent, cleaning up");
     app.quit();
 }
 
@@ -89,7 +88,6 @@ ipcMain.on('cancel_torrent', function(event, id){
 });
 
 app.on('activate', () => {
-    console.log("Activate");
     if(ElectronWindow.getWindow() === null){
         createWindow();
     }

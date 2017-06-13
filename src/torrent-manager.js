@@ -9,9 +9,9 @@ var Manager = function(){
 
     function loadTorrent(filename){
         console.log("Got file "+filename);
-        var file = fs.readFileSync(filename);
-        var tFile = parse(file);
-        var magnet = parse.toMagnetURI(tFile);
+        const file = fs.readFileSync(filename);
+        const tFile = parse(file);
+        const magnet = parse.toMagnetURI(tFile);
 
         return addFromMagnet(magnet);
     }

@@ -5,25 +5,27 @@ import DownloadSettings from './downloadSettings.jsx';
 
 class SettingsComponents extends React.Component {
 
+  renderComponent (Component, name) {
+    return <div key={`settings-${name}`}>
+      <div className="flow-text">
+        <div className="small-flow">
+          {name}
+        </div>
+      </div>
+      <Component/>
+      <div className="divider"></div>
+    </div>
+  }
 
-    render() {
-        var components = [(DownloadSettings, "Download Settings")].map((component) => {
-            var Comp = component[0];
-            return <div>
-                <div className="flow-text">
-                    <div className="small-flow">
-                        {component[1]}
-                    </div>
-                </div>
-                <Comp/>
-                <div className="divider"></div>
-            </div>;
-        });
+  render() {
+    const components = [(DownloadSettings, "Download Settings")]
 
-        return <div>
-            {components}
-        </div>;
-    }
+    const renderedComponents = components.map((component) => this.renderComponent(component[0], component[1]))
+
+    return <div>
+      {renderedComponents}
+    </div>;
+  }
 }
 
 export default SettingsComponents;
