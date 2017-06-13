@@ -1,9 +1,9 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 
 var fs = require('fs');
-var TorrentManager = require('./scripts/torrent-manager');
-var Settings = require('./scripts/settings');
-var ElectronWindow = require('./scripts/electron-window');
+var TorrentManager = require('./torrent-manager');
+var Settings = require('./settings');
+var ElectronWindow = require('./electron-window');
 
 function cleanUp(){
     console.log("Finished getting torrent, cleaning up");
