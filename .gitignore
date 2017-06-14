@@ -1,2 +1,4 @@
 node_modules/
 saved-torrents/
+
+npm-debug.log
