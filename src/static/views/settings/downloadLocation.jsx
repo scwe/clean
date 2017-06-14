@@ -1,52 +1,51 @@
-'use babel'
-
 import React from 'react'
 
-class Settings extends React.Component {
-  getDownloadLocations () {
-    return [{extensions: ['.txt', '.mp4'], path: '/home', id: 1}, {extensions: ['.mp3'], path: '/home/scott', id: 2}]
-  }
+class DownloadLocation extends React.Component {
   addFileClicked (id) {
     console.log('Add file clicked of key: ' + id)
+  }
+
+  onSelectionChange (event) {
+    console.log('On change...', event, ' test')
+    const newExtension = event.target.value
+    console.log(newExtension)
   }
 
   componentDidMount () {
     $('select').material_select()
   }
 
+  renderExtensionSelector (extensions, id) {
+    const options = extensions.map((ext) => <option key={`download-location-${id}-${ext}`} value={ext}>{ext}</option>)
+    options.unshift(<option key={`download-location-${id}-all`} disabled value=''>All extensions</option>)
+    return (
+      <select multiple onChange={this.onSelectionChange.bind(this)} defaultValue={['']}>
+        {options}
+      </select>
+    )
+  }
+
   render () {
-        /* var extensions = this.props.location.extensions.map((loc) => {
-            return <option value= key={loc.id}
-        }); */
-    var downloadLocations = this.getDownloadLocations().map((dlLocation) => {
-      return <div className='row file-field input-field' key={dlLocation.key}>
-        <div className='col s12'>
-          <div className='btn blue-grey waves-effect' onClick={this.addFileClicked.bind(this, dlLocation.key)}>
-            <i className='material-icons'>folder</i>
-          </div>
-        </div>
-        <div className='col s12'>
-          <div className='input-field'>
-            <select multiple>
-              <option value='1'>Option 1</option>
-              <option value='2'>Option 2</option>
-              <option value='3'>Option 3</option>
-            </select>
-          </div>
-        </div>
-        <div className='col s12'>
-          <div className='file-path-wrapper col s8'>
-            <input className='file-path' type='text' defaultValue={dlLocation.location} />
-          </div>
+    const { extensions, path, id } = this.props
+
+    return <div className='row file-field input-field'>
+      <div className='col s12'>
+        <div className='btn blue-grey waves-effect' onClick={this.addFileClicked.bind(this, id)}>
+          <i className='material-icons'>folder</i>
         </div>
       </div>
-    })
-    return <div className='container'>
-      <p className='flow-text'>Download Locations</p>
-      {downloadLocations}
-      <div className='divider' />
+      <div className='col s12'>
+        <div className='input-field'>
+          {this.renderExtensionSelector(extensions, id)}
+        </div>
+      </div>
+      <div className='col s12'>
+        <div className='file-path-wrapper col s8'>
+          <input className='file-path' type='text' defaultValue={path} />
+        </div>
+      </div>
     </div>
   }
 }
 
-export default Settings
+export default DownloadLocation

@@ -1,5 +1,3 @@
-'use babel'
-
 import React from 'react'
 import SettingsComponents from './settingsComponents.jsx'
 

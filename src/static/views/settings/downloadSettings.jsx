@@ -1,5 +1,3 @@
-'use babel'
-
 import React from 'react'
 import DownloadLocation from './downloadLocation.jsx'
 
@@ -16,10 +14,11 @@ class DownloadSettings extends React.Component {
   }
 
   render () {
-    var downloadLocations = this.getDownloadLocations().map((location) => {
-      return <DownloadLocation location={location} key={location.id} />
+    const downloadLocations = this.getDownloadLocations().map((location) => {
+      return <DownloadLocation extensions={location.extensions} path={location.path} key={location.id} id={location.id} />
     })
     return <div>
+      <p className='small-flow'>Locations</p>
       {downloadLocations}
     </div>
   }
