@@ -3,6 +3,11 @@ const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 var TorrentManager = require('./torrent-manager')
 var Settings = require('./settings')
 var ElectronWindow = require('./electron-window')
+const path = require('path')
+
+require('electron-reload')(path.join(__dirname, '..'), {
+  electron: path.join(__dirname, '..', 'node_modules', '.bin', 'electron')
+})
 
 function cleanUp () {
   app.quit()
