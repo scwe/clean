@@ -55,6 +55,9 @@
     "ignore":[
       "src/static/js/jquery-3.1.0.js",
       "src/static/js/materialize.js"
+    ],
+    "globals":[
+      "$"
     ]
   }
 }
