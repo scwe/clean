@@ -1,11 +1,10 @@
 
-function Request(url){
-    this.url = url;
+function Request (url) {
+  this.url = url
 }
 
-Request.prototype.Send(msg, onComplete){
-    
-};
+Request.prototype.Send = function (msg, onComplete) {
 
+}
 
-module.exports = Request;
+module.exports = Request

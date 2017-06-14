@@ -1,19 +1,19 @@
-const {app} = require('electron');
-const path = require('path');
+// const {app} = require('electron')
+// const path = require('path')
 
-var SETTINGS_PATH = path.join(app.getPath('userData'), 'settings.json');
+// const SETTINGS_PATH = path.join(app.getPath('userData'), 'settings.json')
 
-var Settings = function(){
-    function saveSettings(){
-    }
+var Settings = function () {
+  function saveSettings () {
+  }
 
-    function loadSettings(){
+  function loadSettings () {
 
-    }
-    return {
-        saveSettings : saveSettings,
-        loadSettings : loadSettings
-    }
+  }
+  return {
+    saveSettings: saveSettings,
+    loadSettings: loadSettings
+  }
 }
 
-module.exports = new Settings;
+module.exports = new Settings()

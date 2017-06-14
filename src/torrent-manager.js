@@ -1,75 +1,72 @@
-var parse = require('parse-torrent');
-var Torrent = require('./torrent');
-var fs = require('fs');
-var dl = require('./torrent/download');
+var parse = require('parse-torrent')
+var Torrent = require('./torrent')
+var fs = require('fs')
+var dl = require('./torrent/download')
 
-var torrents = {};
+var torrents = {}
 
-var Manager = function(){
+var Manager = function () {
+  function loadTorrent (filename) {
+    console.log('Got file ' + filename)
+    const file = fs.readFileSync(filename)
+    const tFile = parse(file)
+    const magnet = parse.toMagnetURI(tFile)
 
-    function loadTorrent(filename){
-        console.log("Got file "+filename);
-        const file = fs.readFileSync(filename);
-        const tFile = parse(file);
-        const magnet = parse.toMagnetURI(tFile);
+    return addFromMagnet(magnet)
+  }
 
-        return addFromMagnet(magnet);
+  function testTorrent (filename, onClose) {
+    console.log('Testing torrent downloading with: ' + filename)
+    const file = fs.readFileSync(filename)
+    const tFile = parse(file)
+    // const magnet = parse.toMagnetURI(tFile)
+
+    dl.connect(tFile, onClose)
+  }
+
+  function addFromMagnet (magnet) {
+    if (_hasTorrent(magnet)) {
+      return null
+    } else {
+      return _addTorrent(magnet)
     }
+  }
 
-    function testTorrent(filename, onClose){
-        console.log("Testing torrent downloading with: "+filename);
-        const file = fs.readFileSync(filename);
-        const tFile = parse(file);
-        const magnet = parse.toMagnetURI(tFile);
+  function _hasTorrent (magnetLink) {
+    return magnetLink in torrents
+  }
 
-        dl.connect(tFile, onClose);
+  function _addTorrent (magnetLink) {
+    var torrent = new Torrent(magnetLink, 'saved-torrents/')
+    torrents.magnetLink = torrent
+    torrent.setup()
+    return torrent
+  }
+
+  function cancelTorrents () {
+    for (var t in torrents) {
+      torrents[t].delete(true)
     }
+  }
 
-    function addFromMagnet(magnet){
-        if(_hasTorrent(magnet)){
-            return null;
-        }else{
-            return _addTorrent(magnet);
-        }
-    }
+  function stopTorrent (id) {
 
-    function _hasTorrent(magnetLink){
-        return magnetLink in torrents;
-    }
+  }
+  function cancelTorrent (id) {
 
-    function _addTorrent(magnetLink){
-        var torrent = new Torrent(magnetLink, "saved-torrents/");
-        torrents.magnetLink = torrent;
-        torrent.setup();
-        return torrent;
-    }
+  }
 
-    function cancelTorrents(){
-        for(var t in torrents){
-            torrents[t].delete(true);
-        }
-    }
-
-    function stopTorrent(id){
-
-    }
-    function cancelTorrent(id){
-
-    }
-
-    return {
-        loadTorrent : loadTorrent,
-        stopTorrent: stopTorrent,
-        cancelTorrent: cancelTorrent,
-        addFromMagnet: addFromMagnet,
-        cancelTorrents: cancelTorrents,
-        testTorrent: testTorrent
-    }
+  return {
+    loadTorrent: loadTorrent,
+    stopTorrent: stopTorrent,
+    cancelTorrent: cancelTorrent,
+    addFromMagnet: addFromMagnet,
+    cancelTorrents: cancelTorrents,
+    testTorrent: testTorrent
+  }
 }
 
-
-
-module.exports = new Manager;
+module.exports = new Manager()
 /* Python code taken from deluge torrent to
 def associate_magnet_links(overwrite=False):
     """
@@ -128,4 +125,4 @@ def associate_magnet_links(overwrite=False):
                 else:
                     log.error("Unable to register Deluge as default magnet uri handler.")
                     return False
-    return False*/
+    return False */

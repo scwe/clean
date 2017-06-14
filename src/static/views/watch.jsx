@@ -1,13 +1,13 @@
-'use babel';
+'use babel'
 
-import React from 'react';
+import React from 'react'
 
 class Watch extends React.Component {
-    render() {
-        return <div className="container">
-            <p className="flow-text center-align">This is the watch page</p>
-        </div>;
-    }
+  render () {
+    return <div className='container'>
+      <p className='flow-text center-align'>This is the watch page</p>
+    </div>
+  }
 }
 
-export default Watch;
+export default Watch

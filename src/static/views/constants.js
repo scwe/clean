@@ -1,1 +1,1 @@
-export const downloadState = ["Active", "Downloading", "Completed", "Queued", "Paused", "Seeding"]
+export const downloadState = ['Active', 'Downloading', 'Completed', 'Queued', 'Paused', 'Seeding']
