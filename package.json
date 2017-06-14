@@ -49,8 +49,8 @@
     "compact": false
   },
   "pre-commit": [
-    "npm run standard",
-    "npm run standard-message"
+    "standard",
+    "standard-message"
   ],
   "standard": {
     "ignore": [
