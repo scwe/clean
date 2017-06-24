@@ -1,0 +1,178 @@
+import path from 'path';
+import url from 'url';
+import {app, crashReporter, BrowserWindow, Menu, ipcMain} from 'electron';
+import TorrentManager from './torrent-manager'
+import Settings from './settings'
+import ElectronWindow from './electron-window'
+
+const isDevelopment = (process.env.NODE_ENV === 'development');
+
+let mainWindow = null;
+let forceQuit = false;
+
+const installExtensions = async () => {
+  const installer = require('electron-devtools-installer');
+  const extensions = [
+    'REACT_DEVELOPER_TOOLS',
+    'REDUX_DEVTOOLS'
+  ];
+  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+  for (const name of extensions) {
+    try {
+      await installer.default(installer[name], forceDownload);
+    } catch (e) {
+      console.log(`Error installing ${name} extension: ${e.message}`);
+    }
+  }
+};
+
+crashReporter.start({
+  productName: 'Scott Weston',
+  companyName: 'weston.scot@gmail.com',
+  submitURL: 'https://www.github.com/scwe/clean/issues',
+  uploadToServer: false
+})
+
+function cleanUp () {
+  app.quit()
+}
+
+app.on('window-all-closed', () => {
+  TorrentManager.cancelTorrents()
+  Settings.saveSettings()
+
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('ready', async () => {
+  if (isDevelopment) {
+    await installExtensions();
+  }
+
+  if (process.argv.length > 2 && (process.argv[2] === '--torrent' || process.argv[2] === '-t')) {
+    console.log('Running in torrent test mode')
+    if (process.argv.length > 3) {
+      var filename = process.argv[3]
+      TorrentManager.testTorrent(filename, cleanUp)
+    } else {
+      var files = getTorrentFile(false)
+      if (files) {
+        for (var k in files) {
+          TorrentManager.testTorrent(files[k], cleanUp)
+        }
+      }
+    }
+    return
+  }
+
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 600,
+    minWidth: 1000,  // This is just for the moment, ideally we would have a small mode that looks good too
+    frame: false,
+    show: false,
+    webPreferences: {
+      webgl: false,
+      webaudio: false
+    }
+  });
+
+  ElectronWindow.setWindow(mainWindow)
+
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  // show window once on first load
+  mainWindow.webContents.once('did-finish-load', () => {
+    mainWindow.show();
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    // Handle window logic properly on macOS:
+    // 1. App should not terminate if window has been closed
+    // 2. Click on icon in dock should re-open the window
+    // 3. ⌘+Q should close the window and quit the app
+    if (process.platform === 'darwin') {
+      mainWindow.on('close', function (e) {
+        if (!forceQuit) {
+          e.preventDefault();
+          mainWindow.hide();
+        }
+      });
+
+      app.on('activate', () => {
+        mainWindow.show();
+      });
+
+      app.on('before-quit', () => {
+        forceQuit = true;
+      });
+    } else {
+      mainWindow.on('closed', () => {
+        mainWindow = null;
+      });
+    }
+  });
+
+  if (isDevelopment) {
+    // auto-open dev tools
+    mainWindow.webContents.openDevTools();
+
+    // add inspect element on right click menu
+    mainWindow.webContents.on('context-menu', (e, props) => {
+      Menu.buildFromTemplate([{
+        label: 'Inspect element',
+        click() {
+          mainWindow.inspectElement(props.x, props.y);
+        }
+      }]).popup(mainWindow);
+    });
+  }
+});
+
+
+
+function getTorrentFile (multi) {
+  var props = ['openFile']
+  if (multi) {
+    props.push('multiSelections')
+  }
+  return dialog.showOpenDialog({
+    title: 'Open Torrent',
+    filters: [{name: 'torrent', extensions: ['torrent']}],
+    properties: props})
+}
+
+ipcMain.on('add_torrent_files', function (event) {
+  var files = getTorrentFile(true)
+  if (files) {
+    for (var k in files) {
+      TorrentManager.loadTorrent(files[k])
+    }
+  }
+})
+
+ipcMain.on('window-closed', function (event) {
+  ElectronWindow.getWindow().close()
+})
+
+ipcMain.on('stop_torrent', function (event, id) {
+  // torrent.stopTorrent(id)
+})
+
+ipcMain.on('cancel_torrent', function (event, id) {
+  // torrent.cancelTorrent(id)
+})
+
+app.on('activate', () => {
+  if (ElectronWindow.getWindow() === null) {
+    createWindow()
+  }
+})

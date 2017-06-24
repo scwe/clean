@@ -1,4 +1,6 @@
-node_modules/
-saved-torrents/
-
-npm-debug.log
+saved-torrents
+node_modules
+dist
+build
+.DS_Store
+*.log
