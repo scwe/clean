@@ -1,6 +1,6 @@
 import path from 'path';
 import url from 'url';
-import {app, crashReporter, BrowserWindow, Menu, ipcMain} from 'electron';
+import electron, {app, crashReporter, BrowserWindow, Menu, ipcMain, dialog} from 'electron';
 import TorrentManager from './torrent-manager'
 import Settings from './settings'
 import ElectronWindow from './electron-window'
@@ -75,11 +75,12 @@ app.on('ready', async () => {
     minWidth: 1000,  // This is just for the moment, ideally we would have a small mode that looks good too
     frame: false,
     show: false,
+    title: 'clean',
     webPreferences: {
       webgl: false,
       webaudio: false
     }
-  });
+  })
 
   ElectronWindow.setWindow(mainWindow)
 
@@ -87,12 +88,12 @@ app.on('ready', async () => {
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
-  }));
+  }))
 
   // show window once on first load
   mainWindow.webContents.once('did-finish-load', () => {
-    mainWindow.show();
-  });
+    mainWindow.show()
+  })
 
   mainWindow.webContents.on('did-finish-load', () => {
     // Handle window logic properly on macOS:
@@ -102,40 +103,47 @@ app.on('ready', async () => {
     if (process.platform === 'darwin') {
       mainWindow.on('close', function (e) {
         if (!forceQuit) {
-          e.preventDefault();
-          mainWindow.hide();
+          e.preventDefault()
+          mainWindow.hide()
         }
-      });
+      })
 
       app.on('activate', () => {
-        mainWindow.show();
-      });
+        mainWindow.show()
+      })
 
       app.on('before-quit', () => {
-        forceQuit = true;
-      });
+        forceQuit = true
+      })
     } else {
       mainWindow.on('closed', () => {
-        mainWindow = null;
-      });
+        mainWindow = null
+      })
     }
-  });
+  })
 
   if (isDevelopment) {
     // auto-open dev tools
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools()
 
     // add inspect element on right click menu
-    mainWindow.webContents.on('context-menu', (e, props) => {
+    addRightClickInspection(mainWindow)
+  }
+})
+
+function addRightClickInspection (win) {
+  if (isDevelopment) {
+    // add inspect element on right click menu
+    win.webContents.on('context-menu', (e, props) => {
       Menu.buildFromTemplate([{
         label: 'Inspect element',
         click() {
-          mainWindow.inspectElement(props.x, props.y);
+          win.inspectElement(props.x, props.y)
         }
-      }]).popup(mainWindow);
-    });
+      }]).popup(win)
+    })
   }
-});
+}
 
 
 
@@ -169,6 +177,32 @@ ipcMain.on('stop_torrent', function (event, id) {
 
 ipcMain.on('cancel_torrent', function (event, id) {
   // torrent.cancelTorrent(id)
+})
+
+ipcMain.on('open_magnet_prompt', (event, id) => {
+  let magnetPrompt = new BrowserWindow({
+    parent: mainWindow,
+    modal: true,
+    show: false,
+    resizable: isDevelopment,
+    title: 'Open Magnet URL',
+    height: 140,
+    width: 600
+  })
+
+  magnetPrompt.setMenu(null)
+  addRightClickInspection(magnetPrompt)
+
+
+  magnetPrompt.loadURL(url.format({
+    pathname: path.join(__dirname, 'magnet.html'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
+  magnetPrompt.once('ready-to-show', () => {
+    magnetPrompt.show()
+  })
 })
 
 app.on('activate', () => {

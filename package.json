@@ -1,13 +1,13 @@
 {
-  "name": "electron-react-redux-boilerplate",
-  "version": "0.0.0",
-  "description": "electron-react-redux-boilerplate",
+  "name": "Clean",
+  "version": "0.1.0",
+  "description": "Clean - A torrent client with a focus on usability",
   "main": "init.js",
   "author": {
-    "name": "Jordan Schroter",
-    "email": "email@author.com"
+    "name": "Scott Weston",
+    "email": "weston.scot@gmail.com"
   },
-  "repository": "https://github.com/jschr/electron-react-redux-boilerplate",
+  "repository": "https://github.com/scwe/clean",
   "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.22.0",

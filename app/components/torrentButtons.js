@@ -9,7 +9,8 @@ class TorrentButtons extends React.Component {
 
   }
   loadFromMagnet () {
-
+    console.log('Sending open_magnet_prompt')
+    ipcRenderer.send('open_magnet_prompt')
   }
 
   render () {

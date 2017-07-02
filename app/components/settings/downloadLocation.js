@@ -2,13 +2,10 @@ import React from 'react'
 
 class DownloadLocation extends React.Component {
   addFileClicked (id) {
-    console.log('Add file clicked of key: ' + id)
   }
 
   onSelectionChange (event) {
-    console.log('On change...', event, ' test')
     const newExtension = event.target.value
-    console.log(newExtension)
   }
 
   componentDidMount () {
