@@ -179,6 +179,7 @@ ipcMain.on('cancel_torrent', function (event, id) {
   // torrent.cancelTorrent(id)
 })
 
+
 ipcMain.on('open_magnet_prompt', (event, id) => {
   let magnetPrompt = new BrowserWindow({
     parent: mainWindow,
@@ -203,7 +204,18 @@ ipcMain.on('open_magnet_prompt', (event, id) => {
   magnetPrompt.once('ready-to-show', () => {
     magnetPrompt.show()
   })
+
+  ipcMain.once('magnet_submit', (event, magnetUrl) => {
+    console.log('URL is: ', magnetUrl)
+    TorrentManager.addFromMagnet(magnetUrl)
+    magnetPrompt.close()
+  })
+
+  ipcMain.once('magnet_close', (event) => {
+    magnetPrompt.close()
+  })
 })
+
 
 app.on('activate', () => {
   if (ElectronWindow.getWindow() === null) {

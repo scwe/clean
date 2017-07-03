@@ -10,16 +10,27 @@
   </head>
   <body>
     <div class="input-container">
-    <input class="padded-input" placeholder="Copy and paste the magnet URL here"></input>
+    <input id="magnet-input" class="padded-input" placeholder="Copy and paste the magnet URL here"></input>
     </div>
     <div class="button-container">
     <div>
-      <a class="waves-effect waves-light btn blue-grey">Submit</a>
+      <a onclick="submitClicked()" class="waves-effect waves-light btn blue-grey">Submit</a>
     </div>
     <div>
-      <a class="waves-effect waves-light btn blue-grey">Cancel</a>
+      <a onclick="cancelClicked()" class="waves-effect waves-light btn blue-grey">Cancel</a>
     </div>
     </div>
+    <script>
+      const ipcRenderer = require('electron').ipcRenderer
+      function submitClicked(){
+        const input = document.getElementById('magnet-input').value
+        ipcRenderer.send('magnet_submit', input)
+      }
+
+      function cancelClicked(){
+        ipcRenderer.send('magnet_cancel')
+      }
+    </script>
     <script>
     if (typeof module === 'object') {
         window.module = module;
