@@ -6,7 +6,7 @@ class TorrentButtons extends React.Component {
     ipcRenderer.send('add_torrent_files')
   }
   cancelTorrent () {
-
+    ipcRenderer.send('cancel_all_torrents')
   }
   loadFromMagnet () {
     console.log('Sending open_magnet_prompt')

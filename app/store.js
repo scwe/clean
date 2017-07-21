@@ -4,11 +4,10 @@ import { routerMiddleware, routerReducer as routing, push } from 'react-router-r
 import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk'
 import { electronEnhancer } from 'redux-electron-store'
-
+import { fromJS } from 'immutable'
 import test, { actions } from './ducks/test.duck'
 
 const router = routerMiddleware(hashHistory)
-
 
 const reducers = {
   routing,
@@ -17,12 +16,11 @@ const reducers = {
 
 const middlewares = [ thunk, router ]
 
-
-const initialState = {
+const initialState = fromJS({
   test: {
     syncTest: 'This should be synced'
   }
-}
+})
 
 // These two stores should technically be in sync with redux-electron-store
 let appStore

@@ -16,6 +16,16 @@ const routerHistory = syncHistoryWithStore(history, store);
 
 const rootElement = document.querySelector(document.currentScript.getAttribute('data-container'));
 
+if(process.env.BROWSER_SYNC_SERVER){
+  const server = process.env.BROWSER_SYNC_SERVER
+  console.log('server is: ', typeof (server))
+  server.emitter.on('reload', () => {
+    console.log('Browser sync server is being reloaded')
+  })
+}else{
+  console.log('The module is not hot')
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history} routes={routes}/>

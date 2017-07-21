@@ -31,6 +31,7 @@ bsync.init({
 }, (err, bs) => {
   if (err) return console.error(err);
 
+  console.log('Electron is: ', electron)
   const child = spawn(electron, ['.'], {
     env: {
       ...{
@@ -39,17 +40,19 @@ bsync.init({
       },
       ...process.env
     },
-    stdio: 'inherit'
+    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
   });
 
   child.on('close', () => {
     process.exit();
   });
+  console.log('Child is: ', child)
 
   bsync
     .watch('build/**/*')
     .on('change', () => {
       bsync.reload(arguments)
+      child.send('browsersync_reload')
       console.log(`Reloading at ${new Date()}`)
     });
 });

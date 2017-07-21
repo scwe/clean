@@ -4,21 +4,16 @@ import electron, {app, crashReporter, BrowserWindow, Menu, ipcMain, dialog} from
 import TorrentManager from './torrent-manager'
 import Settings from './settings'
 import ElectronWindow from './electron-window'
-import { electronEnhancer } from 'redux-electron-store'
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import { routerMiddleware, routerReducer as routing, push } from 'react-router-redux'
-import { hashHistory } from 'react-router'
-import reduxThunk from 'redux-thunk'
 import { configureAppStore }  from './store'
+import { testAction } from './ducks/test.duck'
 
 // Build The redux store
-
-const store = configureAppStore()
-
 const isDevelopment = (process.env.NODE_ENV === 'development');
 
 let mainWindow = null;
 let forceQuit = false;
+
+const store = configureAppStore()
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -185,7 +180,7 @@ ipcMain.on('stop_torrent', (event, id) => {
   // torrent.stopTorrent(id)
 })
 
-ipcMain.on('cancel_torrent', (event, id) => {
+ipcMain.on('cancel_all_torrents', (event) => {
   // torrent.cancelTorrent(id)
   store.dispatch(testAction('something'))
 })
@@ -197,6 +192,10 @@ ipcMain.on('download_location_set_location', (event, id) => {
   })
 
   event.sender.send('download_location_confirm', folder)
+})
+
+process.on('message', (message) => {
+  console.log('We recieved a message: ', message)
 })
 
 
