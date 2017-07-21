@@ -51,7 +51,7 @@ Torrent.prototype = {
     this._size = this._engine.torrent.length
 
     this._engine.files.forEach(function (file) {
-      // var stream = file.createReadStream()
+      var stream = file.createReadStream()
     })
 
     this._updateView()

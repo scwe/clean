@@ -9,10 +9,6 @@ class DownloadSettings extends React.Component {
     console.log('Add file clicked of key: ' + id)
   }
 
-  componentDidMount () {
-    $('select').material_select()
-  }
-
   render () {
     const downloadLocations = this.getDownloadLocations().map((location) => {
       return <DownloadLocation extensions={location.extensions} path={location.path} key={location.id} id={location.id} />

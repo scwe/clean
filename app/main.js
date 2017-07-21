@@ -1,9 +1,19 @@
-import path from 'path';
-import url from 'url';
-import electron, {app, crashReporter, BrowserWindow, Menu, ipcMain, dialog} from 'electron';
+import path from 'path'
+import url from 'url'
+import electron, {app, crashReporter, BrowserWindow, Menu, ipcMain, dialog} from 'electron'
 import TorrentManager from './torrent-manager'
 import Settings from './settings'
 import ElectronWindow from './electron-window'
+import { electronEnhancer } from 'redux-electron-store'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
+import { routerMiddleware, routerReducer as routing, push } from 'react-router-redux'
+import { hashHistory } from 'react-router'
+import reduxThunk from 'redux-thunk'
+import { configureAppStore }  from './store'
+
+// Build The redux store
+
+const store = configureAppStore()
 
 const isDevelopment = (process.env.NODE_ENV === 'development');
 
@@ -71,7 +81,7 @@ app.on('ready', async () => {
 
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 600,
+    height: 1600,
     minWidth: 1000,  // This is just for the moment, ideally we would have a small mode that looks good too
     frame: false,
     show: false,
@@ -148,7 +158,7 @@ function addRightClickInspection (win) {
 
 
 function getTorrentFile (multi) {
-  var props = ['openFile']
+  const props = ['openFile']
   if (multi) {
     props.push('multiSelections')
   }
@@ -158,8 +168,8 @@ function getTorrentFile (multi) {
     properties: props})
 }
 
-ipcMain.on('add_torrent_files', function (event) {
-  var files = getTorrentFile(true)
+ipcMain.on('add_torrent_files', (event) => {
+  const files = getTorrentFile(true)
   if (files) {
     for (var k in files) {
       TorrentManager.loadTorrent(files[k])
@@ -167,16 +177,26 @@ ipcMain.on('add_torrent_files', function (event) {
   }
 })
 
-ipcMain.on('window-closed', function (event) {
+ipcMain.on('window-closed', (event) => {
   ElectronWindow.getWindow().close()
 })
 
-ipcMain.on('stop_torrent', function (event, id) {
+ipcMain.on('stop_torrent', (event, id) => {
   // torrent.stopTorrent(id)
 })
 
-ipcMain.on('cancel_torrent', function (event, id) {
+ipcMain.on('cancel_torrent', (event, id) => {
   // torrent.cancelTorrent(id)
+  store.dispatch(testAction('something'))
+})
+
+ipcMain.on('download_location_set_location', (event, id) => {
+  const folder = dialog.showOpenDialog({
+    title: 'Select Download Location Folder',
+    properties: ['openDirectory']
+  })
+
+  event.sender.send('download_location_confirm', folder)
 })
 
 
