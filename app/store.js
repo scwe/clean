@@ -47,7 +47,6 @@ export function configureViewStore (initialState) {
     })
   )
 
-  console.log('Initial state is: ', initialState)
   viewStore = createStore(rootReducer, initialState, enhancer)
   return viewStore
 }
