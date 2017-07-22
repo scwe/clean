@@ -1,5 +1,5 @@
 import React from 'react'
-import DownloadSettings from './downloadSettings'
+import DownloadLocationListContainer from '../../containers/downloadLocations.container'
 
 class SettingsComponents extends React.Component {
   renderComponent (SettingsComponent, name) {
@@ -10,18 +10,16 @@ class SettingsComponents extends React.Component {
           {name}
         </div>
       </div>
-      <DownloadSettings />
+      <DownloadLocationListContainer />
       <div className='divider' />
     </div>
   }
 
   render () {
-    const components = [[DownloadSettings, 'Download Settings']]
+    const components = [[DownloadLocationListContainer, 'Download Settings']]
     const renderedComponents = components.map((component) => {
-      console.log('This is: ', component)
       return this.renderComponent(component[0], component[1])
     })
-    console.log('Components are: ', renderedComponents)
 
     return <div>
       {renderedComponents}

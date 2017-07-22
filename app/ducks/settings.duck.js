@@ -5,21 +5,30 @@ export const setDownloadSpeed = createAction('SETTINGS/SET_DOWNLOAD_SPEED')
 export const setUploadSpeedLimit = createAction('SETTINGS/SET_UPLOAD_SPEED')
 export const setMaxConnections = createAction('SETTINGS/SET_MAX_CONNECTIONS')
 export const setMaxSeeding = createAction('SETTINGS/SET_MAX_SEEDING')
+export const addDownloadLocation = createAction('SETTINGS/ADD_DOWNLOAD_LOCATION')
 
 export const actions = {
   setDownloadLocation,
   setDownloadSpeed,
   setUploadSpeedLimit,
   setMaxConnections,
-  setMaxSeeding
+  setMaxSeeding,
+  addDownloadLocation
 }
 
 const initialState = {
-  downloadLocations: [], // A location = {filePath: '', extensions: [], name: '', id: ''}
+  downloadLocations: [defaultDownloadLocation], // A location = {filePath: '', extensions: [], name: '', id: 0}
   downloadSpeedLimit: -1,
   uploadSpeedLimit: -1,
   maxConnections: -1,
   maxSeeding: -1
+}
+
+export const defaultDownloadLocation = {
+  path: '~/',
+  extensions: ['*'],
+  name: 'Downloads',
+  id: 1
 }
 
 function findLocationIndex(locations, id){

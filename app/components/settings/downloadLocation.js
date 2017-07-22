@@ -2,19 +2,9 @@ import React from 'react'
 import { ipcRenderer } from 'electron'
 
 class DownloadLocation extends React.Component {
-  constructor(props, context){
-    super(props, context)
-    this.state = {
-      path: false
-    }
-  }
+
   addFileClicked (id) {
     ipcRenderer.send('download_location_set_location', id)
-    ipcRenderer.once('download_location_confirm', (event, folder) => {
-      this.setState({
-        path: folder
-      })
-    })
   }
 
   onSelectionChange (event) {
@@ -32,9 +22,7 @@ class DownloadLocation extends React.Component {
   }
 
   render () {
-    const { extensions, path, id } = this.props
-    const { path: pathFromState } = this.state
-    const realPath = pathFromState || path
+    const { extensions, path, id } = this.props.location
 
     return <div className='row file-field input-field'>
       <div className='col s12'>
@@ -43,11 +31,10 @@ class DownloadLocation extends React.Component {
             <i className='material-icons'>folder</i>
           </div>
         </div>
-        <div className='col s9 file-path' >{realPath} </div>
+        <div className='col s9 file-path' >{path} </div>
       </div>
       <div className='col s12'>
         <div className='input-field'>
-          something or rather
           {this.renderExtensionSelector(extensions, id)}
         </div>
       </div>
