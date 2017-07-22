@@ -1,13 +1,13 @@
-import test, { actions as testActions } from './test.duck'
+import settings, { actions as settingsActions } from './settings.duck'
 import { LOCATION_CHANGE, routerReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
 export const actions = {
-  ...testActions
+  ...settingsActions
 }
 
 const reducers = combineReducers({
-  test,
+  settings,
   routing: routerReducer
 })
 

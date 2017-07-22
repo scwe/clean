@@ -5,7 +5,6 @@ import TorrentManager from './torrent-manager'
 import Settings from './settings'
 import ElectronWindow from './electron-window'
 import { configureAppStore }  from './store'
-import { testAction } from './ducks/test.duck'
 
 // Build The redux store
 const isDevelopment = (process.env.NODE_ENV === 'development');
@@ -182,7 +181,6 @@ ipcMain.on('stop_torrent', (event, id) => {
 
 ipcMain.on('cancel_all_torrents', (event) => {
   // torrent.cancelTorrent(id)
-  store.dispatch(testAction('something'))
 })
 
 ipcMain.on('download_location_set_location', (event, id) => {
