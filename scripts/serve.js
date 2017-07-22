@@ -31,7 +31,6 @@ bsync.init({
 }, (err, bs) => {
   if (err) return console.error(err);
 
-  console.log('Electron is: ', electron)
   const child = spawn(electron, ['.'], {
     env: {
       ...{
@@ -46,7 +45,6 @@ bsync.init({
   child.on('close', () => {
     process.exit();
   });
-  console.log('Child is: ', child)
 
   bsync
     .watch('build/**/*')

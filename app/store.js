@@ -1,32 +1,19 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { hashHistory } from 'react-router'
-import { routerMiddleware, routerReducer as routing, push } from 'react-router-redux'
-import persistState from 'redux-localstorage'
+import { routerMiddleware, push } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import { electronEnhancer } from 'redux-electron-store'
-import { fromJS } from 'immutable'
-import test, { actions } from './ducks/test.duck'
+import rootReducer, { actions } from './ducks'
 
 const router = routerMiddleware(hashHistory)
 
-const reducers = {
-  routing,
-  test
-}
-
 const middlewares = [ thunk, router ]
-
-const initialState = fromJS({
-  test: {
-    syncTest: 'This should be synced'
-  }
-})
 
 // These two stores should technically be in sync with redux-electron-store
 let appStore
 let viewStore
 
-export function configureAppStore() {
+export function configureAppStore(initialState) {
   // For the app store we only need the default compose, as there is 
   // no dev tools extension necessary
   const enhancer = compose(
@@ -35,20 +22,19 @@ export function configureAppStore() {
       dispatchProxy: a => appStore.dispatch(a)
     })
   )
-  const rootReducer = combineReducers(reducers)
   
   appStore = createStore(rootReducer, initialState, enhancer)
   return appStore
 }
 
-export function configureViewStore () {
-  const actionCreators = {
-    push,
-    ...actions
-  }
+export function configureViewStore (initialState) {
   const composeEnhancers = (() => {
     const compose_ = window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     if(process.env.NODE_ENV === 'development' && compose_) {
+      const actionCreators = {
+        push,
+        ...actions
+      }
       return compose_({ actionCreators })
     }
     return compose;
@@ -56,13 +42,12 @@ export function configureViewStore () {
 
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares), 
-    persistState(),
     electronEnhancer({
       dispatchProxy: a => viewStore.dispatch(a)
     })
   )
-  const rootReducer = combineReducers(reducers)
 
+  console.log('Initial state is: ', initialState)
   viewStore = createStore(rootReducer, initialState, enhancer)
   return viewStore
 }

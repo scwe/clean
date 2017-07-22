@@ -195,7 +195,9 @@ ipcMain.on('download_location_set_location', (event, id) => {
 })
 
 process.on('message', (message) => {
-  console.log('We recieved a message: ', message)
+  if(message === 'browsersync_reload'){
+
+  }
 })
 
 
